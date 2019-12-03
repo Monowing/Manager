@@ -1,5 +1,6 @@
 package com.chen.manager.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -29,6 +30,11 @@ public class Role extends BaseEntity {
 	 * 描述
 	 */
 	private String description;
+	
+	/**
+	 * 内置标志，是否为内置的角色，内置角色不能删除
+	 */
+	private Boolean internalSign;
 
 	/**
 	 * 获取管理员角色名称
@@ -69,4 +75,26 @@ public class Role extends BaseEntity {
 		this.description = description;
 	}
 
+	/**
+	 * 获取内置标志
+	 * @return
+	 */
+	@Column(updatable = false)
+	public Boolean getInternalSign() {
+		return internalSign;
+	}
+
+	/**
+	 * 设置内置标记
+	 * @param internalSign
+	 */
+	public void setInternalSign(Boolean internalSign) {
+		this.internalSign = internalSign;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Role [name=" + name + ", description=" + description + "]";
+	}
 }
