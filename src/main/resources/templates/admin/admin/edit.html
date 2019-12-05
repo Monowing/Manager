@@ -80,6 +80,16 @@
 					</div>
 				</div>
 
+				<div class="layui-form-item">
+					<label class="layui-form-label">账号状态</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" name="onUsed" lay-skin="switch"
+							lay-text="启用|禁用"<#if adminMode.enabled?? &&
+						adminMode.enabled == true >checked</#if>>
+					</div>
+				</div>
+
+
 				<div class="layui-form-item layui-form-text">
 					<label class="layui-form-label">备注</label>
 					<div class="layui-input-block">

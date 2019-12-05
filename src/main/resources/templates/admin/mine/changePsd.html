@@ -18,105 +18,39 @@
 
 						<div class="layui-form" lay-filter="">
 							<div class="layui-form-item">
-								<label class="layui-form-label">我的角色</label>
+								<label class="layui-form-label">原密码</label>
 								<div class="layui-input-inline">
-									<select name="role" lay-verify="">
-										<option value="1" selected="">超级管理员</option>
-										<option value="2" disabled="">普通管理员</option>
-										<option value="3" disabled="">审核员</option>
-										<option value="4" disabled="">编辑人员</option>
-									</select>
-									<div class="layui-unselect layui-form-select">
-										<div class="layui-select-title">
-											<input type="text" placeholder="请选择" value="超级管理员"
-												readonly="" class="layui-input layui-unselect"><i
-												class="layui-edge"></i>
-										</div>
-										<dl class="layui-anim layui-anim-upbit" style="">
-											<dd lay-value="1" class="layui-this">超级管理员</dd>
-											<dd lay-value="2" class="layui-disabled">普通管理员</dd>
-											<dd lay-value="3" class="layui-disabled">审核员</dd>
-											<dd lay-value="4" class="layui-disabled">编辑人员</dd>
-										</dl>
-									</div>
+									<input type="password" name="originalPsd" id="originalPsd"
+										class="layui-input" autocomplete="off" placeholder="请输入原密码"
+										lay-verify="original_psd">
 								</div>
-								<div class="layui-form-mid layui-word-aux">当前角色不可更改为其它角色</div>
 							</div>
+
 							<div class="layui-form-item">
-								<label class="layui-form-label">用户名</label>
+								<label class="layui-form-label">新密码</label>
 								<div class="layui-input-inline">
-									<input type="text" name="username" value="xianxin" readonly=""
-										class="layui-input">
+									<input type="password" name="newPsd" id="newPsd"
+										autocomplete="off" placeholder="请输入新密码" class="layui-input"
+										lay-verify="new_psd"">
 								</div>
-								<div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>
+								<div class="layui-form-mid layui-word-aux">请填写6到12位密码，不要有空格</div>
 							</div>
+
 							<div class="layui-form-item">
-								<label class="layui-form-label">昵称</label>
+								<label class="layui-form-label">确认密码</label>
 								<div class="layui-input-inline">
-									<input type="text" name="nickname" value="贤心"
-										lay-verify="nickname" autocomplete="off" placeholder="请输入昵称"
-										class="layui-input">
+									<input type="password" name="confirmPsd" id="confirmPsd"
+										autocomplete="off" placeholder="请再输入一次新密码" class="layui-input"
+										lay-verify="confirm_psd">
 								</div>
+								<div class="layui-form-mid layui-word-aux">请填写6到12位密码，不要有空格</div>
 							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">性别</label>
-								<div class="layui-input-block">
-									<input type="radio" name="sex" value="男" title="男">
-									<div class="layui-unselect layui-form-radio">
-										<i class="layui-anim layui-icon"></i>
-										<div>男</div>
-									</div>
-									<input type="radio" name="sex" value="女" title="女" checked="">
-									<div class="layui-unselect layui-form-radio layui-form-radioed">
-										<i class="layui-anim layui-icon layui-anim-scaleSpring"></i>
-										<div>女</div>
-									</div>
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">头像</label>
-								<div class="layui-input-inline">
-									<input name="avatar" lay-verify="required" id="LAY_avatarSrc"
-										placeholder="图片地址" value="http://cdn.layui.com/avatar/168.jpg"
-										class="layui-input">
-								</div>
-								<div class="layui-input-inline layui-btn-container"
-									style="width: auto;">
-									<button type="button" class="layui-btn layui-btn-primary"
-										id="LAY_avatarUpload">
-										<i class="layui-icon"></i>上传图片
-									</button>
-									<input class="layui-upload-file" type="file" accept="undefined"
-										name="file">
-									<button class="layui-btn layui-btn-primary"
-										layadmin-event="avartatPreview">查看图片</button>
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">手机</label>
-								<div class="layui-input-inline">
-									<input type="text" name="cellphone" value="" lay-verify="phone"
-										autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">邮箱</label>
-								<div class="layui-input-inline">
-									<input type="text" name="email" value="" lay-verify="email"
-										autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item layui-form-text">
-								<label class="layui-form-label">备注</label>
-								<div class="layui-input-block">
-									<textarea name="remarks" placeholder="请输入内容"
-										class="layui-textarea"></textarea>
-								</div>
-							</div>
+
+							<input type="hidden" lay-verify="two_psd_confirm">
+
 							<div class="layui-form-item">
 								<div class="layui-input-block">
-									<button class="layui-btn" lay-submit="" lay-filter="setmyinfo">确认修改</button>
-									<button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
+									<button class="layui-btn" lay-submit="" lay-filter="psdChange">确认修改</button>
 								</div>
 							</div>
 						</div>
@@ -126,82 +60,72 @@
 			</div>
 		</div>
 	</div>
-
+	<script src="/js/jquery.min.js?v=2.1.4"></script>
 	<script src="/plugins/layui/layui.js"></script>
+	<script type="/js/common.js"></script>
+
 	<script>
-		layui
-				.use(
-						[ 'form', 'layedit', 'laydate' ],
-						function() {
-							var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate;
+	
+	$(document).ready(function() {
 
-							//日期
-							laydate.render({
-								elem : '#date'
-							});
-							laydate.render({
-								elem : '#date1'
-							});
+	});
+		layui.use([ 'form', 'layedit', 'laydate' ], function() {
+			var layer = layui.layer;
+			var form = layui.form;
 
-							//创建一个编辑器
-							var editIndex = layedit.build('LAY_demo_editor');
+			//自定义验证规则
+			form.verify({
+				original_psd : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
+				new_psd : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
+				confirm_psd : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
+				two_psd_confirm : function(value) {
+					var originalPsd = $('#originalPsd').val();
+					var confirmPsd = $('#confirmPsd').val();
+					var newPsd = $('#newPsd').val();
+					if (confirmPsd != '' && newPsd != ''
+							&& confirmPsd != newPsd) {
+						return '确保新密码与确认密码相同！';
+					}
+					
+					if (originalPsd !='' && newPsd !='' && originalPsd == newPsd){
+						return '原密码和新密码相同，请重新输入';
+					}
+				}
+			});
 
-							//自定义验证规则
-							form.verify({
-								title : function(value) {
-									if (value.length < 5) {
-										return '标题至少得5个字符啊';
-									}
-								},
-								pass : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
-								content : function(value) {
-									layedit.sync(editIndex);
-								}
-							});
+			//监听提交
+			form.on('submit(psdChange)', function(data) {
+				changePsd();
+				return false;
+			});
+		});
 
-							//监听指定开关
-							form.on('switch(switchTest)', function(data) {
-								layer.msg('开关checked：'
-										+ (this.checked ? 'true' : 'false'), {
-									offset : '6px'
-								});
-								layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF',
-										data.othis)
-							});
+		function changePsd() {
 
-							//监听提交
-							form.on('submit(demo1)', function(data) {
-								layer.alert(JSON.stringify(data.field), {
-									title : '最终的提交信息'
-								})
-								return false;
-							});
-
-							//表单赋值
-							layui.$('#LAY-component-form-setval').on('click',
-									function() {
-										form.val('example', {
-											"username" : "贤心" // "name": "value"
-											,
-											"password" : "123456",
-											"interest" : 1,
-											"like[write]" : true //复选框选中状态
-											,
-											"close" : true //开关状态
-											,
-											"sex" : "女",
-											"desc" : "我爱 layui"
-										});
-									});
-
-							//表单取值
-							layui.$('#LAY-component-form-getval').on('click',
-									function() {
-										var data = form.val('example');
-										alert(JSON.stringify(data));
-									});
-
-						});
+			$.ajax({
+				url : '/admin/mine/psdChange',
+				type : 'post',
+				data : {
+					orgpsd : $('#originalPsd').val(),
+					newpsd : $('#newPsd').val(),
+					confirmpsd : $('#confirmPsd').val(),
+					token : localStorage.getItem('token')
+				},
+				dataType : 'json',
+				success: function (result){
+					console.log(result)
+					if(result != null){
+						layer.msg(result.mes);
+					}else{
+						layer.msg("数据获取失败!");
+					}
+					
+				},
+				error(err) {
+	            	layer.msg("服務器异常！")
+	            }
+			});
+		}
 	</script>
 
 </body>

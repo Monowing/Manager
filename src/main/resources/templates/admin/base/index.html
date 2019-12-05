@@ -25,8 +25,9 @@
 					</dl></li>
 			</ul>
 			<ul class="layui-nav layui-layout-right ">
-				<li class="layui-nav-item"><a href="javascript:;"> <img
-						src="http://t.cn/RCzsdCq" class="layui-nav-img"> 贤心
+				<li class="layui-nav-item"><a href="javascript:;"
+					id="admin_name"> <img src="http://t.cn/RCzsdCq"
+						class="layui-nav-img">name
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
@@ -126,7 +127,27 @@
 	<script>
 		$(document).ready(function() {
 
-		})
+			initBaseInfo();
+
+		});
+
+		function initBaseInfo() {
+			$.ajax({
+				url : '/admin/admin/getAdminBaseInfoView',
+				type : 'get',
+				data : {
+					token : localStorage.getItem(theToken)
+				},
+				dataType : 'json',
+				success : function(result) {
+					console.log(result);
+					$('#admin_name').html(
+							'<img src="'+ result.data.avatar+'" class="layui-nav-img">'
+									+ result.data.name);
+				}
+
+			});
+		}
 
 		//JavaScript代码区域
 		layui.use('element', function() {

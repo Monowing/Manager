@@ -98,6 +98,16 @@
 					title : '邮箱',
 					width : 250,
 				}, {
+					field : 'enabled',
+					title : '状态',
+					width : 60,
+					templet: function(d){
+						if(d.enabled == null || d.enabled == false){
+							return '<span style="color: #c00;">禁用</span>';
+						}
+						return '<span style="color: #0c0;">启用</span>';
+					}
+				}, {
 					field : 'remarks',
 					title : '备注'
 				}, {

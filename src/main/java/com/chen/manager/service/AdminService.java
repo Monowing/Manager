@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import com.chen.manager.entity.Admin;
-import com.chen.manager.viewmodel.AdminBaseInfoView;
 import com.chen.manager.viewmodel.CommonResult;
 
 /**
@@ -45,7 +44,7 @@ public interface AdminService extends BaseService<Admin, Long> {
 	 *            Token
 	 * @return
 	 */
-	AdminBaseInfoView getAdminBaseInfoView(String token);
+	Admin getByToken(String token);
 
 	/**
 	 * 新增管理员
@@ -84,4 +83,28 @@ public interface AdminService extends BaseService<Admin, Long> {
 	 * @return
 	 */
 	Page<Admin> pageAdmin(String keyword, PageRequest pageRequest);
+
+	/**
+	 * 我的资料修改
+	 * 
+	 * @param admin
+	 *            管理员信息
+	 */
+	void editMine(Admin admin);
+
+	/**
+	 * 我的密码修改
+	 * 
+	 * @param orgpsd
+	 *            原密码
+	 * @param newpsd
+	 *            新密码
+	 * @param confirmpsd
+	 *            确认密码
+	 * @param token
+	 *            Token
+	 * @return
+	 */
+	CommonResult changePassword(String orgpsd, String newpsd,
+			String confirmpsd, String token);
 }

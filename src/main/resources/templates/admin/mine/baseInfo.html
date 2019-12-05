@@ -16,36 +16,12 @@
 					<div class="layui-card-header">设置我的资料</div>
 					<div class="layui-card-body" pad15="">
 
-						<div class="layui-form" lay-filter="">
-							<div class="layui-form-item">
-								<label class="layui-form-label">我的角色</label>
-								<div class="layui-input-inline">
-									<select name="role" lay-verify="">
-										<option value="1" selected="">超级管理员</option>
-										<option value="2" disabled="">普通管理员</option>
-										<option value="3" disabled="">审核员</option>
-										<option value="4" disabled="">编辑人员</option>
-									</select>
-									<div class="layui-unselect layui-form-select">
-										<div class="layui-select-title">
-											<input type="text" placeholder="请选择" value="超级管理员"
-												readonly="" class="layui-input layui-unselect"><i
-												class="layui-edge"></i>
-										</div>
-										<dl class="layui-anim layui-anim-upbit" style="">
-											<dd lay-value="1" class="layui-this">超级管理员</dd>
-											<dd lay-value="2" class="layui-disabled">普通管理员</dd>
-											<dd lay-value="3" class="layui-disabled">审核员</dd>
-											<dd lay-value="4" class="layui-disabled">编辑人员</dd>
-										</dl>
-									</div>
-								</div>
-								<div class="layui-form-mid layui-word-aux">当前角色不可更改为其它角色</div>
-							</div>
+						<form class="layui-form" id="baseInfoForm" lay-filter="">
+							<input id="id" name="id" type="hidden">
 							<div class="layui-form-item">
 								<label class="layui-form-label">用户名</label>
 								<div class="layui-input-inline">
-									<input type="text" name="username" value="xianxin" readonly=""
+									<input type="text" id="userName" name="userName" readonly=""
 										class="layui-input">
 								</div>
 								<div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>
@@ -53,32 +29,22 @@
 							<div class="layui-form-item">
 								<label class="layui-form-label">昵称</label>
 								<div class="layui-input-inline">
-									<input type="text" name="nickname" value="贤心"
-										lay-verify="nickname" autocomplete="off" placeholder="请输入昵称"
-										class="layui-input">
+									<input type="text" id="name" name="name" autocomplete="off"
+										placeholder="请输入昵称" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label">性别</label>
 								<div class="layui-input-block">
-									<input type="radio" name="sex" value="男" title="男">
-									<div class="layui-unselect layui-form-radio">
-										<i class="layui-anim layui-icon"></i>
-										<div>男</div>
-									</div>
-									<input type="radio" name="sex" value="女" title="女" checked="">
-									<div class="layui-unselect layui-form-radio layui-form-radioed">
-										<i class="layui-anim layui-icon layui-anim-scaleSpring"></i>
-										<div>女</div>
-									</div>
+									<#list genderList as item> <input type="radio" name="gender"
+										value="${item}" title="${item.desc}"> </#list>
 								</div>
 							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label">头像</label>
 								<div class="layui-input-inline">
-									<input name="avatar" lay-verify="required" id="LAY_avatarSrc"
-										placeholder="图片地址" value="http://cdn.layui.com/avatar/168.jpg"
-										class="layui-input">
+									<input id="avatar" name="avatar" lay-verify="required"
+										id="LAY_avatarSrc" placeholder="图片地址" class="layui-input">
 								</div>
 								<div class="layui-input-inline layui-btn-container"
 									style="width: auto;">
@@ -95,40 +61,56 @@
 							<div class="layui-form-item">
 								<label class="layui-form-label">手机</label>
 								<div class="layui-input-inline">
-									<input type="text" name="cellphone" value="" lay-verify="phone"
+									<input type="text" id="phone" name="phone" onblur="upperCase()"
 										autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label">邮箱</label>
 								<div class="layui-input-inline">
-									<input type="text" name="email" value="" lay-verify="email"
+									<input type="text" id="email" name="email" lay-verify="email"
 										autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item layui-form-text">
 								<label class="layui-form-label">备注</label>
 								<div class="layui-input-block">
-									<textarea name="remarks" placeholder="请输入内容"
+									<textarea id="remarks" name="remarks" placeholder="请输入内容"
 										class="layui-textarea"></textarea>
 								</div>
 							</div>
-							<div class="layui-form-item">
-								<div class="layui-input-block">
-									<button class="layui-btn" lay-submit="" lay-filter="setmyinfo">确认修改</button>
-									<button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
-								</div>
+
+						</form>
+						
+						<div class="layui-form-item">
+							<div class="layui-input-block">
+								<button class="layui-btn" onclick="editBaseInfo()">确认修改</button>
+								<button class="layui-btn layui-btn-primary"
+									onclick="resetBaseInfo()">重新填写</button>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<script src="/js/jquery.min.js?v=2.1.4"></script>
 	<script src="/plugins/layui/layui.js"></script>
+	<script src="/js/common.js"></script>
+
+
 	<script>
+		$(document).ready(function() {
+
+			initBaseInfo();
+
+		});
+
+		function upperCase() {
+			console.log("ddd");
+		}
+
 		layui.use([ 'form', 'layedit', 'laydate' ], function() {
 			var form = layui.form;
 			var layer = layui.layer;
@@ -137,18 +119,7 @@
 
 		});
 
-		//日期
-		laydate.render({
-			elem : '#date'
-		});
-		laydate.render({
-			elem : '#date1'
-		});
-
-		//创建一个编辑器
-		var editIndex = layedit.build('LAY_demo_editor');
-
-		//自定义验证规则
+		/* //自定义验证规则
 		form.verify({
 			title : function(value) {
 				if (value.length < 5) {
@@ -197,7 +168,75 @@
 		layui.$('#LAY-component-form-getval').on('click', function() {
 			var data = form.val('example');
 			alert(JSON.stringify(data));
-		});
+		}); */
+
+		function initBaseInfo() {
+			$.ajax({
+				url : '/admin/admin/getAdminBaseInfoView',
+				type : 'get',
+				data : {
+					token : localStorage.getItem(theToken)
+				},
+				dataType : 'json',
+				success : function(result) {
+					console.log(result);
+					if (result != null && result.data != null) {
+						setBaseInfo(result.data);
+					} else {
+						layer.msg('数据获取失败');
+					}
+				}
+
+			});
+		}
+
+		function setBaseInfo(data) {
+			console.log(data);
+			$('#id').val(data.id);
+			$('#userName').val(data.userName);
+			$('#name').val(data.name);
+			$(":radio[name='gender'][value=" + data.gender + "]").attr(
+					"checked", "true");
+			$('#avatar').val(data.avatar);
+			$('#phone').val(data.phone);
+			$('#email').val(data.email);
+			$('#remarks').val(data.remarks);
+
+		}
+
+		function editBaseInfo() {
+
+			layer.confirm('确认修改？', function(index) {
+				console.log('editBaseInfo');
+
+				updateBaseInfo();
+
+				layer.close(index);
+			});
+		}
+
+		function resetBaseInfo() {
+
+			layer.confirm('该操作将覆盖已修改的内容，是否重新填写？', function(index) {
+				console.log('reset')
+				initBaseInfo();
+				layer.close(index);
+			});
+
+		}
+
+		function updateBaseInfo() {
+			$.ajax({
+				url : '/admin/mine/edit',
+				type : 'post',
+				data : $("#baseInfoForm").serialize(),
+				dataType : 'json',
+				success : function(result) {
+					console.log(result);
+				}
+
+			});
+		}
 	</script>
 
 </body>

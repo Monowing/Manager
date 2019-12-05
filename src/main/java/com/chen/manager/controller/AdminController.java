@@ -19,6 +19,7 @@ import com.chen.manager.enumbean.Gender;
 import com.chen.manager.service.AdminService;
 import com.chen.manager.service.RoleService;
 import com.chen.manager.utils.BaseUtils;
+import com.chen.manager.viewmodel.AdminBaseInfoView;
 import com.chen.manager.viewmodel.AdminPageVO;
 import com.chen.manager.viewmodel.CommonResult;
 import com.chen.manager.viewmodel.LayuiPageMode;
@@ -153,8 +154,15 @@ public class AdminController {
 	 */
 	@PostMapping("/edit")
 	@ResponseBody
-	public CommonResult edit(Admin admin) {
+	public CommonResult edit(Admin admin, String onUsed) {
+		System.out.println(onUsed);
 		System.out.println(admin.toString());
+
+		if ("on".equals(onUsed)) {
+			admin.setEnabled(true);
+		} else {
+			admin.setEnabled(false);
+		}
 		return new CommonResult().success(adminService.editAdmin(admin));
 	}
 
@@ -182,7 +190,10 @@ public class AdminController {
 	@GetMapping("/getAdminBaseInfoView")
 	@ResponseBody
 	public CommonResult getAdminBaseInfoView(String token) {
-		return new CommonResult().success(adminService
-				.getAdminBaseInfoView(token));
+		Admin admin = adminService.getByToken(token);
+		if(admin != null){
+			return new CommonResult().success(new AdminBaseInfoView(admin));
+		}
+		return new CommonResult().error();
 	}
 }

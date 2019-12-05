@@ -14,6 +14,11 @@ import com.chen.manager.enumbean.Gender;
 public class AdminBaseInfoView {
 
 	/**
+	 * ID
+	 */
+	private Long id;
+
+	/**
 	 * 用户名
 	 */
 	private String userName;
@@ -49,6 +54,7 @@ public class AdminBaseInfoView {
 	private String remarks;
 
 	public AdminBaseInfoView(Admin admin) {
+		this.id = admin.getId();
 		this.userName = admin.getUserName();
 		this.name = admin.getName();
 		this.avatar = admin.getAvatar();
@@ -56,6 +62,14 @@ public class AdminBaseInfoView {
 		this.phone = admin.getPhone();
 		this.email = admin.getEmail();
 		this.remarks = admin.getRemarks();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getUserName() {
@@ -113,7 +127,5 @@ public class AdminBaseInfoView {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	
-	
-	
+
 }

@@ -16,7 +16,6 @@ import com.chen.manager.entity.Admin;
 import com.chen.manager.service.AdminService;
 import com.chen.manager.utils.MD5Helper;
 import com.chen.manager.utils.TokenHelper;
-import com.chen.manager.viewmodel.AdminBaseInfoView;
 import com.chen.manager.viewmodel.CommonResult;
 
 /**
@@ -102,16 +101,12 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 	}
 
 	@Override
-	public AdminBaseInfoView getAdminBaseInfoView(String token) {
+	public Admin getByToken(String token) {
 		Long adminId = TokenHelper.getLongAdminId(token);
 		if (adminId == null || adminId <= 0) {
 			return null;
 		}
-		Admin admin = get(adminId).get();
-		if (admin == null) {
-			return null;
-		}
-		return new AdminBaseInfoView(admin);
+		return get(adminId).get();
 	}
 
 	@Override
@@ -174,6 +169,47 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 		}
 
 		return result.success();
+	}
+
+	@Override
+	public void editMine(Admin admin) {
+		
+		Long id = admin.getId();
+		Admin original = get(id).get();
+		System.out.println("original " + original.toString());
+		System.out.println("now " + admin.toString());
+
+		BeanUtils.copyProperties(original, admin, "name", "gender",
+				"avatar", "phone", "email", "remarks");
+
+		save(admin);
+		
+	}
+
+	@Override
+	public CommonResult changePassword(String orgpsd,
+			String newpsd, String confirmpsd, String token) {
+
+		if(StringUtils.isEmpty(orgpsd)|| StringUtils.isEmpty(newpsd)|| StringUtils.isEmpty(confirmpsd)|| StringUtils.isEmpty(token)){
+			return new CommonResult().error();
+		}
+		
+		Admin admin = getByToken(token);
+		
+		if(admin == null){
+			return new CommonResult().error("该用户不存在！");
+		}
+		
+		if( MD5Helper.stringMD5(orgpsd).equals(admin.getPassWord())&& newpsd.equals(confirmpsd)){
+			
+			admin.setPassWord(MD5Helper.stringMD5(newpsd));
+			save(admin);
+			
+			return new CommonResult().success(null,"密码修改成功");
+			
+		}
+		
+		return new CommonResult().error("原密码错误，请重新输入原密码！");
 	}
 
 }
