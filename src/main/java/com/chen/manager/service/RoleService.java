@@ -18,12 +18,41 @@ import com.chen.manager.viewmodel.CommonResult;
  */
 public interface RoleService extends BaseService<Role, Long> {
 
-	Page<Role> pageRole(String keyword, PageRequest pageRequest);
-
+	/**
+	 * 新增角色
+	 * 
+	 * @param role
+	 *            角色信息
+	 * @return
+	 */
 	Role insertRole(Role role);
 
+	/**
+	 * 编辑角色
+	 * 
+	 * @param role
+	 *            角色信息
+	 * @return
+	 */
 	Role editRole(Role role);
 
-	CommonResult deleteRole(List<Long> longIds);
+	/**
+	 * 删除角色
+	 * 
+	 * @param longIds
+	 *            角色ID的list
+	 * @return
+	 */
+	CommonResult deleteRole(List<Long> ids);
 
+	/**
+	 * 获取角色分页数据
+	 * 
+	 * @param keyword
+	 *            搜索关键字
+	 * @param pageRequest
+	 *            分页信息
+	 * @return
+	 */
+	Page<Role> pageRole(String keyword, PageRequest pageRequest);
 }

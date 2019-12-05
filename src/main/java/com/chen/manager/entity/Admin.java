@@ -6,9 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.chen.manager.enumbean.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * 系统表——管理员
@@ -36,6 +40,11 @@ public class Admin extends BaseEntity {
 	 * 密码
 	 */
 	private String passWord;
+
+	/**
+	 * 角色
+	 */
+	private Role role;
 
 	/**
 	 * 昵称
@@ -118,6 +127,27 @@ public class Admin extends BaseEntity {
 	 */
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
+	}
+
+	/**
+	 * 获取角色
+	 * 
+	 * @return
+	 */
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
+	public Role getRole() {
+		return role;
+	}
+
+	/**
+	 * 设置角色
+	 * 
+	 * @param role
+	 *            角色
+	 */
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	/**
@@ -292,5 +322,23 @@ public class Admin extends BaseEntity {
 	public void setTokenDate(Date tokenDate) {
 		this.tokenDate = tokenDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Admin [userName=" + userName + ", passWord=" + passWord
+				+ ", role=" + role + ", name=" + name + ", gender=" + gender
+				+ ", avatar=" + avatar + ", phone=" + phone + ", email="
+				+ email + ", enabled=" + enabled + ", remarks=" + remarks
+				+ ", token=" + token + ", tokenDate=" + tokenDate + "]";
+	}
+
+	@Transient
+	public String getRoleStr() {
+		if(role == null){
+			return "";
+		}
+		return role.getName();
+	}
+
 
 }

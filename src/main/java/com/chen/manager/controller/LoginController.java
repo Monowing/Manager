@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.chen.manager.service.AdminService;
 import com.chen.manager.viewmodel.CommonResult;
 
+/**
+ * 系统——登录
+ * 
+ * created at 2019-11-01
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 public class LoginController {
 
@@ -17,16 +25,17 @@ public class LoginController {
 	private AdminService adminService;
 
 	/**
-	 * 登录页
+	 * 页面跳转——登录页
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/login")
-	private String login(){
+	private String login() {
 		return "admin/base/login";
 	}
-	
+
 	/**
-	 * 登录
+	 * 管理员登录
 	 * 
 	 * @param userName
 	 *            用户名
@@ -42,7 +51,7 @@ public class LoginController {
 	}
 
 	/**
-	 * 登出
+	 * 管理员登出
 	 * 
 	 * @param token
 	 *            Token值

@@ -1,5 +1,10 @@
 package com.chen.manager.service;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import com.chen.manager.entity.Admin;
 import com.chen.manager.viewmodel.AdminBaseInfoView;
 import com.chen.manager.viewmodel.CommonResult;
@@ -33,7 +38,50 @@ public interface AdminService extends BaseService<Admin, Long> {
 	 */
 	void logoutWeb(String token);
 
+	/**
+	 * 通过Token获取系统管理员信息
+	 * 
+	 * @param token
+	 *            Token
+	 * @return
+	 */
 	AdminBaseInfoView getAdminBaseInfoView(String token);
 
+	/**
+	 * 新增管理员
+	 * 
+	 * @param admin
+	 *            管理员信息
+	 * @return
+	 */
 	Admin insertAdmin(Admin admin);
+
+	/**
+	 * 编辑管理员
+	 * 
+	 * @param admin
+	 *            管理员信息
+	 * @return
+	 */
+	Admin editAdmin(Admin admin);
+
+	/**
+	 * 删除管理员
+	 * 
+	 * @param adminIds
+	 *            管理员的ID的list
+	 * @return
+	 */
+	CommonResult deleteAdmin(List<Long> adminIds);
+
+	/**
+	 * 管理员信息的分页
+	 * 
+	 * @param keyword
+	 *            关键字
+	 * @param pageRequest
+	 *            分页信息
+	 * @return
+	 */
+	Page<Admin> pageAdmin(String keyword, PageRequest pageRequest);
 }

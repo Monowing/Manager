@@ -1,5 +1,13 @@
 package com.chen.manager.viewmodel;
 
+/**
+ * 角色分页Model
+ * 
+ * created at 2019-12-03
+ * 
+ * @author Administrator
+ *
+ */
 public class RolePageVO {
 
 	/**

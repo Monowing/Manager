@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>基本资料</title>
+<link rel="stylesheet" href="/plugins/layui/css/layui.css">
+<link rel="stylesheet" href="/css/common.css">
+</head>
+
+<body>
+
+	<div class="layui-fluid">
+		<div class="layui-row margin-top-5">
+
+			<form class="layui-form" id="editForm">
+
+				<input type="hidden" id="id" name="id" value="${adminMode.id}">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">用户名</label>
+					<div class="layui-input-inline">
+						<input type="text" id="userName" name="userName"
+							class="layui-input" placeholder="请输入用户名" readonly="readonly"
+							value="${adminMode.userName!}">
+					</div>
+					<div class="layui-form-mid layui-word-aux">管理员登录账号</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">角色</label>
+					<div class="layui-input-inline">
+						<select name="role" lay-verify=""> <#list roleList as
+							item>
+							<option value="${item.id}"<#if adminMode.role?? &&
+								item.id == adminMode.role.id >selected="selected"</#if>
+								>${item.name}</option> </#list>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">头像</label>
+					<div class="layui-input-inline">
+						<input type="text" id="avatar" name="avatar" class="layui-input"
+							value="${adminMode.avatar!}" placeholder="请输入头像">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">昵称</label>
+					<div class="layui-input-inline">
+						<input type="text" id="name" name="name" class="layui-input"
+							value="${adminMode.name!}" placeholder="请输入昵称">
+					</div>
+				</div>
+
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-block">
+						<#list genderList as item> <input type="radio" name="gender"
+							value="${item}" title="${item.desc}"<#if
+						adminMode.gender?? && item == adminMode.gender>checked</#if> >
+						</#list>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">电话</label>
+					<div class="layui-input-inline">
+						<input type="text" id="phone" name="phone" class="layui-input"
+							value="${adminMode.phone!}" placeholder="请输入电话">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">邮箱</label>
+					<div class="layui-input-inline">
+						<input type="text" id="email" name="email" class="layui-input"
+							value="${adminMode.email!}" placeholder="请输入邮箱地址">
+					</div>
+				</div>
+
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">备注</label>
+					<div class="layui-input-block">
+						<textarea id="remarks" name="remarks" placeholder="请输入内容"
+							class="layui-textarea">${adminMode.remarks!}</textarea>
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+
+	<script src="/js/jquery.min.js?v=2.1.4"></script>
+	<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="/plugins/layui/layui.js"></script>
+	<script>
+		layui.use([ 'form', 'layedit', 'laydate' ], function() {
+			var form = layui.form;
+			var layer = layui.layer;
+			//var layedit = layui.layedit;
+			var laydate = layui.laydate;
+
+		});
+
+		/* //创建一个编辑器
+		var editIndex = layedit.build('LAY_demo_editor');
+
+		//自定义验证规则
+		form.verify({
+			title : function(value) {
+				if (value.length < 5) {
+					return '标题至少得5个字符啊';
+				}
+			},
+			pass : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
+			content : function(value) {
+				layedit.sync(editIndex);
+			}
+		});
+
+		//监听指定开关
+		form.on('switch(switchTest)', function(data) {
+			layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+				offset : '6px'
+			});
+			layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+		});
+
+		//监听提交
+		form.on('submit(demo1)', function(data) {
+			layer.alert(JSON.stringify(data.field), {
+				title : '最终的提交信息'
+			})
+			return false;
+		});
+
+		//表单赋值
+		layui.$('#LAY-component-form-setval').on('click', function() {
+			form.val('example', {
+				"username" : "贤心" // "name": "value"
+				,
+				"password" : "123456",
+				"interest" : 1,
+				"like[write]" : true //复选框选中状态
+				,
+				"close" : true //开关状态
+				,
+				"sex" : "女",
+				"desc" : "我爱 layui"
+			});
+		});
+
+		//表单取值
+		layui.$('#LAY-component-form-getval').on('click', function() {
+			var data = form.val('example');
+			alert(JSON.stringify(data));
+		});
+		 */
+		var BASE_URL = '${request.contextPath}';
+
+		function validOk() {
+			//layer.alert("ok")
+			return true;
+
+		}
+
+		function submitForm() {
+
+			return $.ajax({
+				url : '/admin/admin/edit',
+				type : 'post',
+				data : $("#editForm").serialize(),
+				dataType : 'json'
+
+			});
+		}
+	</script>
+
+</body>

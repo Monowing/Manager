@@ -1,7 +1,6 @@
 package com.chen.manager.serviceimpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +43,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements
 
 	@Override
 	public Role insertRole(Role role) {
+		role.setInternalSign(false);
 		return save(role);
 	}
 

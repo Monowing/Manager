@@ -17,23 +17,23 @@ import org.springframework.data.domain.Pageable;
  * @param <ID>
  */
 public interface BaseService<T, ID extends Serializable> {
-	
+
 	T save(T entity);
-	
+
 	Iterable<T> saveAll(Iterable<T> entities);
-	
+
 	void delete(ID id);
 
 	void delete(T entity);
-	
+
 	void deleteAll(Iterable<T> entities);
 
 	boolean exists(ID id);
 
 	Optional<T> get(ID id);
-	
+
 	Iterable<T> findAll();
-	
+
 	Iterable<T> findAll(Iterable<ID> ids);
 
 	Page<T> findAll(Pageable pageable);

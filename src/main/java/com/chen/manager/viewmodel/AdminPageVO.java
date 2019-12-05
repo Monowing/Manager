@@ -1,18 +1,22 @@
 package com.chen.manager.viewmodel;
 
-import com.chen.manager.entity.Admin;
 import com.chen.manager.enumbean.Gender;
 
 /**
- * 管理员基本信息展示类
+ * 管理员分页Model
  * 
- * created at 2019-11-12
+ * created at 2019-12-05
  * 
  * @author Administrator
  *
  */
-public class AdminBaseInfoView {
+public class AdminPageVO {
 
+	/**
+	 * ID
+	 */
+	private Long id;
+	
 	/**
 	 * 用户名
 	 */
@@ -24,9 +28,19 @@ public class AdminBaseInfoView {
 	private String name;
 
 	/**
+	 * 角色
+	 */
+	private String roleStr;
+	
+	/**
 	 * 性别
 	 */
 	private Gender gender;
+	
+	/**
+	 * 性别
+	 */
+	private String genderStr;
 
 	/**
 	 * 头像
@@ -44,18 +58,26 @@ public class AdminBaseInfoView {
 	private String email;
 
 	/**
+	 * 是否可用
+	 */
+	private Boolean enabled;
+	
+	/**
+	 * 是否可用
+	 */
+	private String enabledStr;
+
+	/**
 	 * 备注
 	 */
 	private String remarks;
 
-	public AdminBaseInfoView(Admin admin) {
-		this.userName = admin.getUserName();
-		this.name = admin.getName();
-		this.avatar = admin.getAvatar();
-		this.gender = admin.getGender();
-		this.phone = admin.getPhone();
-		this.email = admin.getEmail();
-		this.remarks = admin.getRemarks();
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getUserName() {
@@ -73,6 +95,14 @@ public class AdminBaseInfoView {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getRoleStr() {
+		return roleStr;
+	}
+
+	public void setRoleStr(String roleStr) {
+		this.roleStr = roleStr;
+	}
 
 	public Gender getGender() {
 		return gender;
@@ -80,6 +110,19 @@ public class AdminBaseInfoView {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+
+	public String getGenderStr() {
+		if(gender == null){
+			genderStr ="";
+		}else{
+			genderStr = gender.getDesc();
+		}
+		return genderStr;
+	}
+
+	public void setGenderStr(String genderStr) {
+		this.genderStr = genderStr;
 	}
 
 	public String getAvatar() {
@@ -106,6 +149,27 @@ public class AdminBaseInfoView {
 		this.email = email;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getEnabledStr() {
+		if(enabled == null || enabled == false){
+			enabledStr = "禁用";
+		}else{
+			enabledStr ="启用";
+		}
+		return enabledStr;
+	}
+
+	public void setEnabledStr(String enabledStr) {
+		this.enabledStr = enabledStr;
+	}
+
 	public String getRemarks() {
 		return remarks;
 	}
@@ -113,7 +177,6 @@ public class AdminBaseInfoView {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	
-	
+
 	
 }

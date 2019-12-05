@@ -3,7 +3,10 @@ package com.chen.manager.serviceimpl;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -65,12 +68,12 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 
 	@Override
 	public void logoutWeb(String token) {
-		
+
 		Long adminId = TokenHelper.getLongAdminId(token);
-		if(adminId == null || adminId <=0){
+		if (adminId == null || adminId <= 0) {
 			return;
 		}
-		
+
 		Admin admin = get(adminId).get();
 		if (admin == null) {
 			return;
@@ -99,15 +102,9 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 	}
 
 	@Override
-	public Admin insertAdmin(Admin admin) {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	@Override
 	public AdminBaseInfoView getAdminBaseInfoView(String token) {
 		Long adminId = TokenHelper.getLongAdminId(token);
-		if(adminId == null || adminId <=0){
+		if (adminId == null || adminId <= 0) {
 			return null;
 		}
 		Admin admin = get(adminId).get();
@@ -117,9 +114,66 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 		return new AdminBaseInfoView(admin);
 	}
 
-	/*
-	 * private Admin findAdminByUserName(String userName) { List<Admin> list =
-	 * adminDao.findByUserName(userName); if (list != null && list.size() == 1)
-	 * { return list.get(0); } return null; }
-	 */
+	@Override
+	public Page<Admin> pageAdmin(String keyword, PageRequest pageRequest) {
+		return adminDao.pageRole(fieldLike(keyword), fieldLike(keyword),
+				pageRequest);
+	}
+
+	@Override
+	public Admin insertAdmin(Admin admin) {
+		List<Admin> adminList = adminDao.findByUserName(admin.getUserName());
+		if (adminList != null && adminList.size() > 0) {
+			return null;
+		}
+
+		admin.setEnabled(true);
+		admin.setPassWord(MD5Helper.stringMD5(admin.getPassWord()));
+
+		return save(admin);
+	}
+
+	@Override
+	public Admin editAdmin(Admin admin) {
+		Long id = admin.getId();
+		Admin original = get(id).get();
+		System.out.println("original " + original.toString());
+		System.out.println("now " + admin.toString());
+
+		BeanUtils.copyProperties(original, admin, "role", "name", "gender",
+				"avatar", "phone", "email", "enabled", "remarks");
+
+		return save(admin);
+	}
+
+	@Override
+	public CommonResult deleteAdmin(List<Long> ids) {
+		CommonResult result = new CommonResult();
+
+		if (ids == null || ids.size() <= 0) {
+			return result.error("数据为空，无法删除！");
+		}
+
+		for (Long id : ids) {
+			if (id == null || id <= 0) {
+				continue;
+			}
+			Admin admin = get(id).get();
+			if (admin == null || admin.getRole() == null) {
+				continue;
+			}
+
+			if (admin.getRole().getInternalSign()) {
+				return result.error("数据包含系统角色，不可删除！");
+			}
+
+		}
+
+		for (Long id : ids) {
+			delete(id);
+		}
+
+		return result.success();
+	}
+
 }

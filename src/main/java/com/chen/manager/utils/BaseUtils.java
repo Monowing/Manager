@@ -5,6 +5,14 @@ import java.util.List;
 
 import org.springframework.util.StringUtils;
 
+/**
+ * 基本方法类
+ * 
+ * created at 2019-12-03
+ * 
+ * @author Administrator
+ *
+ */
 public class BaseUtils {
 
 	/**

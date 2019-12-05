@@ -1,5 +1,13 @@
 package com.chen.manager.viewmodel;
 
+/**
+ * Layui的分页数据返回格式
+ * 
+ * created at 2019-12-03
+ * 
+ * @author Administrator
+ *
+ */
 public class LayuiPageMode {
 
 	private Integer code;

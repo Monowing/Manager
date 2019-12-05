@@ -11,13 +11,13 @@ package com.chen.manager.enumbean;
 public enum Gender {
 
 	/**
-	 * 男性
+	 * 男
 	 */
-	MALE("1", "男性"),
+	MALE("1", "男"),
 	/**
-	 * 女性
+	 * 女
 	 */
-	FEMALE("2", "女性");
+	FEMALE("2", "女");
 
 	/**
 	 * 枚举值
@@ -71,4 +71,5 @@ public enum Gender {
 		this.value = value;
 		this.desc = desc;
 	}
+
 }
