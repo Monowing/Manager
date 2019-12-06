@@ -10,12 +10,24 @@ package com.chen.manager.viewmodel;
  */
 public class LayuiPageMode {
 
+	/**
+	 * code
+	 */
 	private Integer code;
 	
+	/**
+	 * 消息
+	 */
 	private String msg;
 	
+	/**
+	 * 总数量
+	 */
 	private Long count;
 	
+	/**
+	 * 分页数据
+	 */
 	private Object data;
 
 	public Integer getCode() {

@@ -32,6 +32,7 @@
 	</div>
 	<script src="/js/jquery.min.js?v=2.1.4"></script>
 	<script src="/plugins/layui/layui.js" charset="utf-8"></script>
+	<script src="/js/common.js"></script>
 
 	<script type="text/html" id="toolbarDemo">
   		<div class="layui-btn-container">
@@ -79,15 +80,22 @@
 					field : 'name',
 					title : '角色名',
 					width : 120,
-				//edit : 'text'
 				}, {
-					field : 'internalSignStr',
+					field : 'internalSign',
 					title : '是否内置',
 					width : 120,
-				//edit : 'text'
+					templet: function(d){
+						if(d.internalSign == null || d.internalSign == false){
+							return '是';
+						}
+						return '否';
+					}
 				}, {
 					field : 'description',
 					title : '描述'
+				},  {
+					field : 'createDate',
+					title : '创建日期',
 				}, {
 					fixed : 'right',
 					title : '操作',
@@ -190,15 +198,9 @@
 					if (iframeWin.validOk()) {
 						iframeWin.submitForm().then(function(data) {
 							console.log(data);
-							if (data.type == "SUCCESS") {
+							if (data.code == 0) {
 
-								$("#roleTable").empty();
-								table.reload("roleTable", { //此处是上文提到的 初始化标识id
-									page : {
-										curr : 1
-									}
-								});
-
+								reloadTable(table,1);
 								//刷新列表
 								layer.close(index);
 							}
@@ -235,19 +237,11 @@
 					if (iframeWin.validOk()) {
 						iframeWin.submitForm().then(function(data) {
 							console.log(data);
-							if (data.type == "SUCCESS") {
-
-								$("#roleTable").empty();
-								table.reload("roleTable", { //此处是上文提到的 初始化标识id
-									page : {
-										curr : currPage
-									}
-								});
-
+							if (data.code == 0) {
+								reloadTable(table,currPage);
 								//刷新列表
 								layer.close(index);
 							}
-
 						}, function() {
 						});
 
@@ -271,21 +265,14 @@
 					ids : ids.toString()
 				},
 				dataType : 'json',
-				success(result) {
+				success : function(result){
 					console.log(result);
 					
-					if(result != null && result.type == "ERROR"){
-						layer.msg(result.mes);
-					}else{
-						$("#roleTable").empty();
-						table.reload("roleTable", { //此处是上文提到的 初始化标识id
-							page : {
-								curr : currPage
-							}
-						});
+					if(result != null){
+						layer.msg(result.msg);
 					}
 					
-					
+					reloadTable(table,currPage);
 	            },
 	            error(err) {
 	            	layer.msg("服務器异常！")
@@ -296,7 +283,14 @@
 			
 			
 		}
-		
+		function reloadTable(table,pageNum){
+			$("#roleTable").empty();
+			table.reload("roleTable", { //此处是上文提到的 初始化标识id
+				page : {
+					curr : pageNum
+				}
+			});
+		}
 		 
 	</script>
 	<script type="text/javascript">

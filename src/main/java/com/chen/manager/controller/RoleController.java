@@ -1,5 +1,6 @@
 package com.chen.manager.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,12 +69,14 @@ public class RoleController {
 		List<RolePageVO> roleList = new ArrayList<RolePageVO>();
 
 		List<Role> content = pageRole.getContent();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for (Role role : content) {
 			RolePageVO item = new RolePageVO();
 			item.setId(role.getId());
 			item.setName(role.getName());
 			item.setDescription(role.getDescription());
 			item.setInternalSign(role.getInternalSign());
+			item.setCreateDate(sdf.format(role.getCreateTime()));
 			roleList.add(item);
 		}
 
@@ -106,7 +109,8 @@ public class RoleController {
 	@ResponseBody
 	public CommonResult add(Role role) {
 		System.out.println(role.toString());
-		return new CommonResult().success(roleService.insertRole(role));
+		roleService.insertRole(role);
+		return new CommonResult().success();
 	}
 
 	/**
@@ -134,7 +138,8 @@ public class RoleController {
 	@ResponseBody
 	public CommonResult edit(Role role) {
 		System.out.println(role.toString());
-		return new CommonResult().success(roleService.editRole(role));
+		roleService.editRole(role);
+		return new CommonResult().success();
 	}
 
 	/**

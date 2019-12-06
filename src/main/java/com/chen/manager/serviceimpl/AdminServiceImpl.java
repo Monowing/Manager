@@ -111,8 +111,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 
 	@Override
 	public Page<Admin> pageAdmin(String keyword, PageRequest pageRequest) {
-		return adminDao.pageRole(fieldLike(keyword), fieldLike(keyword),
-				pageRequest);
+		return adminDao.pageRole(fieldLike(keyword), pageRequest);
 	}
 
 	@Override
@@ -173,42 +172,45 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 
 	@Override
 	public void editMine(Admin admin) {
-		
+
 		Long id = admin.getId();
 		Admin original = get(id).get();
 		System.out.println("original " + original.toString());
 		System.out.println("now " + admin.toString());
 
-		BeanUtils.copyProperties(original, admin, "name", "gender",
-				"avatar", "phone", "email", "remarks");
+		BeanUtils.copyProperties(original, admin, "name", "gender", "avatar",
+				"phone", "email", "remarks");
 
 		save(admin);
-		
+
 	}
 
 	@Override
-	public CommonResult changePassword(String orgpsd,
-			String newpsd, String confirmpsd, String token) {
+	public CommonResult changePassword(String orgpsd, String newpsd,
+			String confirmpsd, String token) {
 
-		if(StringUtils.isEmpty(orgpsd)|| StringUtils.isEmpty(newpsd)|| StringUtils.isEmpty(confirmpsd)|| StringUtils.isEmpty(token)){
+		if (StringUtils.isEmpty(orgpsd) || StringUtils.isEmpty(newpsd)
+				|| StringUtils.isEmpty(confirmpsd)
+				|| StringUtils.isEmpty(token)) {
 			return new CommonResult().error();
 		}
-		
+
 		Admin admin = getByToken(token);
-		
-		if(admin == null){
+
+		if (admin == null) {
 			return new CommonResult().error("该用户不存在！");
 		}
-		
-		if( MD5Helper.stringMD5(orgpsd).equals(admin.getPassWord())&& newpsd.equals(confirmpsd)){
-			
+
+		if (MD5Helper.stringMD5(orgpsd).equals(admin.getPassWord())
+				&& newpsd.equals(confirmpsd)) {
+
 			admin.setPassWord(MD5Helper.stringMD5(newpsd));
 			save(admin);
-			
-			return new CommonResult().success(null,"密码修改成功");
-			
+
+			return new CommonResult().success(null, "密码修改成功！");
+
 		}
-		
+
 		return new CommonResult().error("原密码错误，请重新输入原密码！");
 	}
 

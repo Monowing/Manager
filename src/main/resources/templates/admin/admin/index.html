@@ -17,7 +17,7 @@
 		<div class="layui-row margin-top-5">
 
 			<div class="demoTable">
-				搜索角色名：
+				搜索用户名：
 				<div class="layui-inline">
 					<input class="layui-input" name="keyword" id="keyword"
 						autocomplete="off">
@@ -25,11 +25,12 @@
 				<button class="layui-btn" data-type="reload">搜索</button>
 			</div>
 
-			<table class="layui-hide" id="roleTable" lay-filter="roleTable"></table>
+			<table class="layui-hide" id="adminTable" lay-filter="adminTable"></table>
 		</div>
 	</div>
 	<script src="/js/jquery.min.js?v=2.1.4"></script>
 	<script src="/plugins/layui/layui.js" charset="utf-8"></script>
+	<script src="/js/common.js"></script>
 
 	<script type="text/html" id="toolbarDemo">
   		<div class="layui-btn-container">
@@ -50,7 +51,7 @@
 			var table = layui.table;
 
 			table.render({
-				elem : '#roleTable',
+				elem : '#adminTable',
 				url : '/admin/admin/page',
 				method : 'post',
 				toolbar : '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
@@ -78,17 +79,29 @@
 					title : '用户名',
 					width : 120,
 				},{
-					field : 'roleStr',
-					title : '角色',
-					width : 120,
-				},{
-					field : 'name',
+					field : 'nickName',
 					title : '昵称',
 					width : 120,
 				}, {
-					field : 'genderStr',
+					field : 'gender',
 					title : '性别',
 					width : 60,
+					templet: function(d){
+						if(d.gender == null){
+							return '';
+						}
+						if(d.gender =="MALE"){
+							return '男';
+						}
+						if(d.gender =="FMALE"){
+							return '女';
+						}
+						return '';
+					}
+				},{
+					field : 'roleStr',
+					title : '角色',
+					width : 120,
 				}, {
 					field : 'phone',
 					title : '电话',
@@ -127,7 +140,7 @@
 			});
 
 			//头工具栏事件
-			table.on('toolbar(roleTable)', function(obj) {
+			table.on('toolbar(adminTable)', function(obj) {
 				var checkStatus = table.checkStatus(obj.config.id);
 				switch (obj.event) {
 				case 'add':
@@ -160,7 +173,7 @@
 			});
 
 			//监听行工具事件
-			table.on('tool(roleTable)', function(obj) {
+			table.on('tool(adminTable)', function(obj) {
 				var data = obj.data;
 				if (obj.event === 'del') {
 					layer.confirm('确认删除该行数据？', function(index) {
@@ -177,7 +190,7 @@
 					reload: function(){
 						var demoReload = $('#keyword');
 						//执行重载
-						table.reload('roleTable', {
+						table.reload('adminTable', {
 							page: {
 								curr: 1 //重新从第 1 页开始
 							},
@@ -212,17 +225,11 @@
 					if (iframeWin.validOk()) {
 						iframeWin.submitForm().then(function(data) {
 							console.log(data);
-							if (data.type == "SUCCESS") {
-
-								$("#roleTable").empty();
-								table.reload("roleTable", { //此处是上文提到的 初始化标识id
-									page : {
-										curr : 1
-									}
-								});
-
-								//刷新列表
+							if(data!=null && data.code == 0){
+								reloadTable(table,1);
 								layer.close(index);
+							}else{
+								layer.msg("新增失败");
 							}
 
 						}, function() {
@@ -257,19 +264,12 @@
 					if (iframeWin.validOk()) {
 						iframeWin.submitForm().then(function(data) {
 							console.log(data);
-							if (data.type == "SUCCESS") {
-
-								$("#roleTable").empty();
-								table.reload("roleTable", { //此处是上文提到的 初始化标识id
-									page : {
-										curr : currPage
-									}
-								});
-
-								//刷新列表
+							if(data!=null && data.code == 0){
+								reloadTable(table,currPage);
 								layer.close(index);
+							}else{
+								layer.msg("编辑失败");
 							}
-
 						}, function() {
 						});
 
@@ -296,18 +296,11 @@
 				success(result) {
 					console.log(result);
 					
-					if(result != null && result.type == "ERROR"){
-						layer.msg(result.mes);
-					}else{
-						$("#roleTable").empty();
-						table.reload("roleTable", { //此处是上文提到的 初始化标识id
-							page : {
-								curr : currPage
-							}
-						});
+					if(result != null){
+						layer.msg(result.msg);
 					}
 					
-					
+					reloadTable(table,currPage);
 	            },
 	            error(err) {
 	            	layer.msg("服務器异常！")
@@ -318,7 +311,14 @@
 			
 			
 		}
-		
+		function reloadTable(table,pageNum){
+			$("#adminTable").empty();
+			table.reload("adminTable", { //此处是上文提到的 初始化标识id
+				page : {
+					curr : pageNum
+				}
+			});
+		}
 		 
 	</script>
 	<script type="text/javascript">

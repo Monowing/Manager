@@ -37,8 +37,8 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements
 	}
 
 	@Override
-	public Page<Role> pageRole(String keyword,PageRequest pageRequest) {
-		return roleDao.pageRole(fieldLike(keyword),fieldLike(keyword),pageRequest);
+	public Page<Role> pageRole(String keyword, PageRequest pageRequest) {
+		return roleDao.pageRole(fieldLike(keyword), pageRequest);
 	}
 
 	@Override
@@ -51,43 +51,42 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements
 	public Role editRole(Role role) {
 		Long id = role.getId();
 		Role original = get(id).get();
-		System.out.println("original "+original.toString());
-		System.out.println("now "+role.toString());
-		
-		BeanUtils.copyProperties(original, role, "name","description");
-		
+		System.out.println("original " + original.toString());
+		System.out.println("now " + role.toString());
+
+		BeanUtils.copyProperties(original, role, "name", "description");
+
 		return save(role);
 	}
 
 	@Override
 	public CommonResult deleteRole(List<Long> ids) {
 		CommonResult result = new CommonResult();
-		
-		if(ids ==null || ids.size()<=0){
+
+		if (ids == null || ids.size() <= 0) {
 			return result.error("数据为空，无法删除！");
 		}
-		
+
 		for (Long id : ids) {
-			if(id == null || id<=0){
+			if (id == null || id <= 0) {
 				continue;
 			}
 			Role role = get(id).get();
-			if(role == null || role.getInternalSign() == null){
+			if (role == null || role.getInternalSign() == null) {
 				continue;
 			}
 
-			if(role.getInternalSign()){
+			if (role.getInternalSign()) {
 				return result.error("数据包含系统角色，不可删除！");
 			}
-			
+
 		}
-		
+
 		for (Long id : ids) {
 			delete(id);
 		}
-		
-		return result.success();
-	}
 
+		return result.success("删除成功");
+	}
 
 }

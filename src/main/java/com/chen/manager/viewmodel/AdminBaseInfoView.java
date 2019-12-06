@@ -26,7 +26,7 @@ public class AdminBaseInfoView {
 	/**
 	 * 昵称
 	 */
-	private String name;
+	private String nickName;
 
 	/**
 	 * 性别
@@ -56,7 +56,7 @@ public class AdminBaseInfoView {
 	public AdminBaseInfoView(Admin admin) {
 		this.id = admin.getId();
 		this.userName = admin.getUserName();
-		this.name = admin.getName();
+		this.nickName = admin.getNickName();
 		this.avatar = admin.getAvatar();
 		this.gender = admin.getGender();
 		this.phone = admin.getPhone();
@@ -80,12 +80,12 @@ public class AdminBaseInfoView {
 		this.userName = userName;
 	}
 
-	public String getName() {
-		return name;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public Gender getGender() {

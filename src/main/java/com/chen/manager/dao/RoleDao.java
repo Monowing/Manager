@@ -19,7 +19,7 @@ import com.chen.manager.entity.Role;
 @Repository
 public interface RoleDao extends PagingAndSortingRepository<Role, Long> {
 
-	@Query(value = "select * from sys_role where if(?1 !='', name like ?1,1=1) and if(?2 !='', description like ?2,1=1)", nativeQuery = true)
-	Page<Role> pageRole(String name, String description, PageRequest pageRequest);
+	@Query(value = "select * from sys_role where if(?1 !='', name like ?1,1=1)", nativeQuery = true)
+	Page<Role> pageRole(String name,PageRequest pageRequest);
 
 }

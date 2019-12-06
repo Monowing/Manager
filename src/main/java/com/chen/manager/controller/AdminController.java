@@ -78,7 +78,7 @@ public class AdminController {
 			AdminPageVO item = new AdminPageVO();
 			item.setId(admin.getId());
 			item.setUserName(admin.getUserName());
-			item.setName(admin.getName());
+			item.setNickName(admin.getNickName());
 			item.setGender(admin.getGender());
 			item.setAvatar(admin.getAvatar());
 			item.setEmail(admin.getEmail());
@@ -124,7 +124,8 @@ public class AdminController {
 	@ResponseBody
 	public CommonResult add(Admin admin) {
 		System.out.println(admin.toString());
-		return new CommonResult().success(adminService.insertAdmin(admin));
+		adminService.insertAdmin(admin);
+		return new CommonResult().success();
 	}
 
 	/**
@@ -163,7 +164,9 @@ public class AdminController {
 		} else {
 			admin.setEnabled(false);
 		}
-		return new CommonResult().success(adminService.editAdmin(admin));
+		
+		adminService.editAdmin(admin);
+		return new CommonResult().success();
 	}
 
 	/**
@@ -194,6 +197,6 @@ public class AdminController {
 		if(admin != null){
 			return new CommonResult().success(new AdminBaseInfoView(admin));
 		}
-		return new CommonResult().error();
+		return new CommonResult().error("数据获取失败");
 	}
 }

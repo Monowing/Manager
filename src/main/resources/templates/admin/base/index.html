@@ -120,10 +120,11 @@
 		<div class="layui-footer"></div>
 
 	</div>
+	
 	<script src="/plugins/layui/layui.js"></script>
 	<script src="/js/jquery.min.js?v=2.1.4"></script>
-
 	<script src="/js/common.js"></script>
+	
 	<script>
 		$(document).ready(function() {
 
@@ -141,18 +142,19 @@
 				dataType : 'json',
 				success : function(result) {
 					console.log(result);
-					$('#admin_name').html(
-							'<img src="'+ result.data.avatar+'" class="layui-nav-img">'
-									+ result.data.name);
+					if (result != null && result.data != null) {
+						$('#admin_name').html(
+								'<img src="'+ result.data.avatar+'" class="layui-nav-img">'
+										+ result.data.nickName);
+					}
+
 				}
 
 			});
 		}
 
-		//JavaScript代码区域
 		layui.use('element', function() {
 			var element = layui.element;
-
 		});
 	</script>
 </body>

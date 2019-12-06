@@ -39,9 +39,10 @@
 
 
 	</div>
-	<script type="/js/common.js"></script>
+	
 	<script src="/plugins/layui/layui.js"></script>
 	<script src="/js/jquery.min.js?v=2.1.4"></script>
+	<script src="/js/common.js"></script>
 
 	<script type="text/javascript">
 		var BASE_URL = '${request.contextPath}';
@@ -72,7 +73,7 @@
 						localStorage.setItem("token", data.data);
 						location.href = "/index?token=" + data.data;
 					} else {
-						layer.msg(data.mes);
+						layer.msg(data.msg);
 					}
 				},
 				error : function(data) {

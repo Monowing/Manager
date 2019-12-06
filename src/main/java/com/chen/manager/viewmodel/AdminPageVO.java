@@ -16,7 +16,7 @@ public class AdminPageVO {
 	 * ID
 	 */
 	private Long id;
-	
+
 	/**
 	 * 用户名
 	 */
@@ -25,22 +25,17 @@ public class AdminPageVO {
 	/**
 	 * 昵称
 	 */
-	private String name;
+	private String nickName;
 
 	/**
 	 * 角色
 	 */
 	private String roleStr;
-	
+
 	/**
 	 * 性别
 	 */
 	private Gender gender;
-	
-	/**
-	 * 性别
-	 */
-	private String genderStr;
 
 	/**
 	 * 头像
@@ -61,11 +56,6 @@ public class AdminPageVO {
 	 * 是否可用
 	 */
 	private Boolean enabled;
-	
-	/**
-	 * 是否可用
-	 */
-	private String enabledStr;
 
 	/**
 	 * 备注
@@ -88,14 +78,14 @@ public class AdminPageVO {
 		this.userName = userName;
 	}
 
-	public String getName() {
-		return name;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
-	
+
 	public String getRoleStr() {
 		return roleStr;
 	}
@@ -110,19 +100,6 @@ public class AdminPageVO {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
-	}
-
-	public String getGenderStr() {
-		if(gender == null){
-			genderStr ="";
-		}else{
-			genderStr = gender.getDesc();
-		}
-		return genderStr;
-	}
-
-	public void setGenderStr(String genderStr) {
-		this.genderStr = genderStr;
 	}
 
 	public String getAvatar() {
@@ -157,19 +134,6 @@ public class AdminPageVO {
 		this.enabled = enabled;
 	}
 
-	public String getEnabledStr() {
-		if(enabled == null || enabled == false){
-			enabledStr = "禁用";
-		}else{
-			enabledStr ="启用";
-		}
-		return enabledStr;
-	}
-
-	public void setEnabledStr(String enabledStr) {
-		this.enabledStr = enabledStr;
-	}
-
 	public String getRemarks() {
 		return remarks;
 	}
@@ -178,5 +142,4 @@ public class AdminPageVO {
 		this.remarks = remarks;
 	}
 
-	
 }

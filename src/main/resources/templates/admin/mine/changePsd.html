@@ -51,6 +51,7 @@
 							<div class="layui-form-item">
 								<div class="layui-input-block">
 									<button class="layui-btn" lay-submit="" lay-filter="psdChange">确认修改</button>
+									<button class="layui-btn layui-btn-primary" onclick="reset()">重新填写</button>
 								</div>
 							</div>
 						</div>
@@ -62,13 +63,10 @@
 	</div>
 	<script src="/js/jquery.min.js?v=2.1.4"></script>
 	<script src="/plugins/layui/layui.js"></script>
-	<script type="/js/common.js"></script>
+	<script src="/js/common.js"></script>
 
 	<script>
 	
-	$(document).ready(function() {
-
-	});
 		layui.use([ 'form', 'layedit', 'laydate' ], function() {
 			var layer = layui.layer;
 			var form = layui.form;
@@ -95,13 +93,16 @@
 
 			//监听提交
 			form.on('submit(psdChange)', function(data) {
-				changePsd();
+				layer.confirm('确认修改？', function(index) {
+					changePsd();
+					layer.close(index);
+				});
 				return false;
 			});
 		});
 
 		function changePsd() {
-
+			
 			$.ajax({
 				url : '/admin/mine/psdChange',
 				type : 'post',
@@ -109,13 +110,16 @@
 					orgpsd : $('#originalPsd').val(),
 					newpsd : $('#newPsd').val(),
 					confirmpsd : $('#confirmPsd').val(),
-					token : localStorage.getItem('token')
+					token : localStorage.getItem(theToken)
 				},
 				dataType : 'json',
 				success: function (result){
 					console.log(result)
 					if(result != null){
-						layer.msg(result.mes);
+						if(result.code == 0){
+							resetInput();
+						}
+						layer.msg(result.msg);
 					}else{
 						layer.msg("数据获取失败!");
 					}
@@ -126,6 +130,20 @@
 	            }
 			});
 		}
+		
+		function reset(){
+			layer.confirm('该操作将覆盖已修改的内容，是否重新填写？', function(index) {
+				resetInput();
+				layer.close(index);
+			});
+		}
+
+		function resetInput(){
+			$('#originalPsd').val("");
+			$('#newPsd').val("");
+			$('#confirmPsd').val("");
+		}
+		
 	</script>
 
 </body>

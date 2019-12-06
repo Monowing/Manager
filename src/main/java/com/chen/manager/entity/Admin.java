@@ -49,7 +49,7 @@ public class Admin extends BaseEntity {
 	/**
 	 * 昵称
 	 */
-	private String name;
+	private String nickName;
 
 	/**
 	 * 性别
@@ -134,8 +134,9 @@ public class Admin extends BaseEntity {
 	 * 
 	 * @return
 	 */
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler",
+			"fieldHandler" })
 	public Role getRole() {
 		return role;
 	}
@@ -155,8 +156,8 @@ public class Admin extends BaseEntity {
 	 * 
 	 * @return
 	 */
-	public String getName() {
-		return name;
+	public String getNickName() {
+		return nickName;
 	}
 
 	/**
@@ -165,8 +166,8 @@ public class Admin extends BaseEntity {
 	 * @param name
 	 *            昵称
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	/**
@@ -323,22 +324,12 @@ public class Admin extends BaseEntity {
 		this.tokenDate = tokenDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Admin [userName=" + userName + ", passWord=" + passWord
-				+ ", role=" + role + ", name=" + name + ", gender=" + gender
-				+ ", avatar=" + avatar + ", phone=" + phone + ", email="
-				+ email + ", enabled=" + enabled + ", remarks=" + remarks
-				+ ", token=" + token + ", tokenDate=" + tokenDate + "]";
-	}
-
 	@Transient
 	public String getRoleStr() {
-		if(role == null){
+		if (role == null) {
 			return "";
 		}
 		return role.getName();
 	}
-
 
 }

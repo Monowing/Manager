@@ -1,5 +1,6 @@
 package com.chen.manager.viewmodel;
 
+
 /**
  * 角色分页Model
  * 
@@ -31,9 +32,9 @@ public class RolePageVO {
 	private Boolean internalSign;
 
 	/**
-	 * 内置标志描述
+	 * 创建日期
 	 */
-	private String internalSignStr;
+	private String createDate;
 
 	public Long getId() {
 		return id;
@@ -67,17 +68,13 @@ public class RolePageVO {
 		this.internalSign = internalSign;
 	}
 
-	public String getInternalSignStr() {
-		if (internalSign == null || internalSign == false) {
-			internalSignStr = "否";
-		} else {
-			internalSignStr = "是";
-		}
-		return internalSignStr;
+	public String getCreateDate() {
+		return createDate;
 	}
 
-	public void setInternalSignStr(String internalSignStr) {
-		this.internalSignStr = internalSignStr;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
+
 
 }

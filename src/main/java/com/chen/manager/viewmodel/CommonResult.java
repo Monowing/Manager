@@ -12,33 +12,18 @@ import java.io.Serializable;
  */
 public class CommonResult implements Serializable {
 
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4976566673643514728L;
 
-	public static final String MES_TEXT_SUCCESS = "成功";
+	public static final String MESSAGE_SUCCESS = "成功";
 
-	public static final String MES_TEXT_ERROR = "失败";
+	public static final String MESSAGE_ERROR = "失败";
 
-	/**
-	 * 类型
-	 */
-	public enum Type {
+	public static final int CODE_SUCCESS = 0;
 
-		/** 成功 */
-		SUCCESS,
-
-		/** 失败 */
-		ERROR
-
-	}
-
-	/**
-	 * 返回类型
-	 */
-	private Type type;
+	public static final int CODE_ERROR = 1;
 
 	/**
 	 * 返回数据
@@ -46,27 +31,14 @@ public class CommonResult implements Serializable {
 	private Object data;
 
 	/**
+	 * 返回状态码
+	 */
+	private Integer code;
+
+	/**
 	 * 返回信息
 	 */
-	private String mes;
-
-	/**
-	 * 获取返回类型
-	 * 
-	 * @return
-	 */
-	public Type getType() {
-		return type;
-	}
-
-	/**
-	 * 设置返回类型
-	 * 
-	 * @param type
-	 */
-	public void setType(Type type) {
-		this.type = type;
-	}
+	private String msg;
 
 	/**
 	 * 获取返回数据
@@ -87,21 +59,39 @@ public class CommonResult implements Serializable {
 	}
 
 	/**
+	 * 获取返回状态码0：成功；1：失败；
+	 * 
+	 * @return
+	 */
+	public Integer getCode() {
+		return code;
+	}
+
+	/**
+	 * 设置返回状态码 0：成功；1：失败；
+	 * 
+	 * @param code
+	 */
+	public void setCode(Integer code) {
+		this.code = code;
+	}
+
+	/**
 	 * 获取返回信息
 	 * 
 	 * @return
 	 */
-	public String getMes() {
-		return mes;
+	public String getMsg() {
+		return msg;
 	}
 
 	/**
 	 * 设置返回信息
 	 * 
-	 * @param mes
+	 * @param msg
 	 */
-	public void setMes(String mes) {
-		this.mes = mes;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 	/**
@@ -112,47 +102,18 @@ public class CommonResult implements Serializable {
 	}
 
 	/**
-	 * 构造函数
-	 * 
-	 * @param type
-	 *            返回类型
-	 * @param mes
-	 *            返回消息
-	 */
-	public CommonResult(Type type, String mes) {
-		this.type = type;
-		this.mes = mes;
-	}
-
-	/**
-	 * 构造函数
-	 * 
-	 * @param data
-	 *            数据
-	 * @param type
-	 *            返回类型
-	 * @param mes
-	 *            返回消息
-	 */
-	public CommonResult(Object data, Type type, String mes) {
-		this.data = data;
-		this.type = type;
-		this.mes = mes;
-	}
-
-	/**
 	 * 成功返回
 	 * 
 	 * @param data
 	 *            数据
-	 * @param mes
+	 * @param msg
 	 *            消息
 	 * @return
 	 */
-	public CommonResult success(Object data, String mes) {
-		this.type = Type.SUCCESS;
+	public CommonResult success(Object data, String msg) {
+		this.code = CODE_SUCCESS;
 		this.data = data;
-		this.mes = mes;
+		this.msg = msg;
 		return this;
 	}
 
@@ -164,9 +125,9 @@ public class CommonResult implements Serializable {
 	 * @return
 	 */
 	public CommonResult success(Object data) {
-		this.type = Type.SUCCESS;
+		this.code = CODE_SUCCESS;
+		this.msg = MESSAGE_SUCCESS;
 		this.data = data;
-		this.mes = MES_TEXT_SUCCESS;
 		return this;
 	}
 
@@ -176,21 +137,21 @@ public class CommonResult implements Serializable {
 	 * @return
 	 */
 	public CommonResult success() {
-		this.type = Type.SUCCESS;
-		this.mes = MES_TEXT_SUCCESS;
+		this.code = CODE_SUCCESS;
+		this.msg = MESSAGE_SUCCESS;
 		return this;
 	}
 
 	/**
 	 * 返回失败
 	 * 
-	 * @param mes
+	 * @param msg
 	 *            消息
 	 * @return
 	 */
-	public CommonResult error(String mes) {
-		this.type = Type.ERROR;
-		this.mes = mes;
+	public CommonResult error(String msg) {
+		this.code = CODE_ERROR;
+		this.msg = msg;
 		return this;
 	}
 
@@ -200,8 +161,8 @@ public class CommonResult implements Serializable {
 	 * @return
 	 */
 	public CommonResult error() {
-		this.type = Type.ERROR;
-		this.mes = MES_TEXT_ERROR;
+		this.code = CODE_ERROR;
+		this.msg = MESSAGE_ERROR;
 		return this;
 	}
 
