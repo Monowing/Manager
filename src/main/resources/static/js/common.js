@@ -17,7 +17,7 @@ $(function() {
     $(".main_left a").on("click",
     function() {
         var address = $(this).attr("data-src");
-        console.log(address) $("iframe").attr("src", address);
+        $("iframe").attr("src", address);
     });
 
 });

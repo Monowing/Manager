@@ -69,9 +69,10 @@
 					passWord : password
 				},
 				success : function(data) {
-					if (data.type == "SUCCESS") {
+					if (data.code == SUCCESS_CODE) {
 						localStorage.setItem("token", data.data);
 						location.href = "/index?token=" + data.data;
+						location.href = "/index";
 					} else {
 						layer.msg(data.msg);
 					}

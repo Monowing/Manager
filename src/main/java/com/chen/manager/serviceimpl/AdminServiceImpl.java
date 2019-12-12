@@ -134,7 +134,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 		System.out.println("original " + original.toString());
 		System.out.println("now " + admin.toString());
 
-		BeanUtils.copyProperties(original, admin, "role", "name", "gender",
+		BeanUtils.copyProperties(original, admin, "role", "nickName", "gender",
 				"avatar", "phone", "email", "enabled", "remarks");
 
 		return save(admin);
@@ -178,7 +178,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 		System.out.println("original " + original.toString());
 		System.out.println("now " + admin.toString());
 
-		BeanUtils.copyProperties(original, admin, "name", "gender", "avatar",
+		BeanUtils.copyProperties(original, admin, "nickName", "gender", "avatar",
 				"phone", "email", "remarks");
 
 		save(admin);

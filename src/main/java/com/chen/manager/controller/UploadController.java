@@ -13,37 +13,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.chen.manager.service.UploadService;
 import com.chen.manager.viewmodel.CommonResult;
 
 /**
- * 系统——基础
+ * 系统——文件上传
  * 
- * created at 2019-11-01
+ * created at 2019-12-12
  * 
  * @author MonoWing
  *
  */
 @Controller
-public class BaseController {
+public class UploadController {
 
-	/**
-	 * 页面跳转——导航页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/index")
-	private String index() {
-		return "/admin/base/index";
+	@Autowired
+	private UploadService uploadService;
+	
+	
+	@RequestMapping(value = "/uploadFile/{ftype}", method = RequestMethod.POST, produces = {"application/json"})
+	@ResponseBody
+	public CommonResult upLoadFile(MultipartFile file,@PathVariable("ftype") String ftype,HttpServletRequest req,HttpServletResponse resp) throws IOException {
+
+		if (file == null) {
+			return new CommonResult().error("请选择要上传文件!");
+		}
+		return uploadService.uploadLocal(ftype, file);
 	}
 
-	/**
-	 * 页面跳转——首页
-	 * 
-	 * @return
-	 */
-	@RequestMapping("/main")
-	private String main() {
-		return "/admin/base/main";
-	}
-
+	
 }

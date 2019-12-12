@@ -29,8 +29,8 @@
 							<div class="layui-form-item">
 								<label class="layui-form-label">昵称</label>
 								<div class="layui-input-inline">
-									<input type="text" id="nickName" name="nickName" autocomplete="off"
-										placeholder="请输入昵称" class="layui-input">
+									<input type="text" id="nickName" name="nickName"
+										autocomplete="off" placeholder="请输入昵称" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-form-item">
@@ -49,13 +49,13 @@
 								<div class="layui-input-inline layui-btn-container"
 									style="width: auto;">
 									<button type="button" class="layui-btn layui-btn-primary"
-										id="LAY_avatarUpload">
-										<i class="layui-icon"></i>上传图片
+										id="avatarUpload">
+										<i class="layui-icon"></i>上传头像
 									</button>
 									<input class="layui-upload-file" type="file" accept="undefined"
 										name="file">
-									<button class="layui-btn layui-btn-primary"
-										layadmin-event="avartatPreview">查看图片</button>
+									<button type="button" class="layui-btn layui-btn-primary"
+										onclick="showImg()">查看图片</button>
 								</div>
 							</div>
 							<div class="layui-form-item">
@@ -107,15 +107,45 @@
 
 		});
 
+		function showImg() {
+
+			var img = "<img src='" + $('#avatar').val() + "' />";
+			layer.open({
+				type : 1,
+				shift : 2,
+				shade : 0,
+				title : '查看图片',
+				shadeClose : true,
+				content : img
+			});
+
+		}
+
 		function upperCase() {
 			console.log("ddd");
 		}
 
-		layui.use([ 'form', 'layedit', 'laydate' ], function() {
+		layui.use([ 'form', 'layedit', 'laydate', 'upload' ], function() {
 			var form = layui.form;
 			var layer = layui.layer;
 			var layedit = layui.layedit;
 			var laydate = layui.laydate;
+			var upload = layui.upload;
+
+			//执行实例
+			var uploadInst = upload.render({
+				elem : '#avatarUpload',//绑定元素
+				url : '/uploadFile/avatar',//上传接口
+				done : function(res) {
+					//上传完毕回调
+					layer.msg("上传成功")
+					setImgPath(res.data);
+				},
+				error : function() {
+					//请求异常回调
+					layer.msg("请求异常")
+				}
+			});
 
 		});
 
@@ -142,6 +172,9 @@
 			});
 		}
 
+		function setImgPath(path) {
+			$('#avatar').val(path);
+		}
 		function setBaseInfo(data) {
 			if (data == null) {
 				return false;
