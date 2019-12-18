@@ -50,7 +50,7 @@
 		});
 		function validOk() {
 
-			if (myStringUtils.inputCheckEmpty($("#name").val())) {
+			if (myStringUtils.isBlankOrEmpty($("#name").val())) {
 				layer.msg('请输入角色名');
 				return false;
 			}
