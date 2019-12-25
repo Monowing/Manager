@@ -166,4 +166,11 @@ public class CommonResult implements Serializable {
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		return "CommonResult [data=" + data + ", code=" + code + ", msg=" + msg
+				+ "]";
+	}
+
+	
 }

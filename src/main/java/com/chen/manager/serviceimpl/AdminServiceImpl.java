@@ -13,8 +13,9 @@ import org.springframework.util.StringUtils;
 
 import com.chen.manager.dao.AdminDao;
 import com.chen.manager.entity.Admin;
+import com.chen.manager.log.Log;
 import com.chen.manager.service.AdminService;
-import com.chen.manager.utils.MD5Helper;
+import com.chen.manager.utils.MdHelper;
 import com.chen.manager.utils.TokenHelper;
 import com.chen.manager.viewmodel.CommonResult;
 
@@ -42,6 +43,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 
 	@Override
 	public CommonResult loginWeb(String userName, String passWord) {
+
 		if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(passWord)) {
 			return new CommonResult().error("登录失败，用户名或者密码为空");
 		}
@@ -50,14 +52,14 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 			return new CommonResult().error("登录失败,用户名或密码错误");
 		}
 		if (list.size() > 1) {
-			// TODO 记录日志——账号有两个以上，存在异常
+			Log.error("登录账号存在相同的：" + userName);
 			return new CommonResult().error("登录失败，账号信息异常");
 		}
 		Admin admin = list.get(0);
 		if (admin == null || admin.getId() <= 0) {
 			return new CommonResult().error("登录失败,用户名或密码错误");
 		}
-		if (MD5Helper.stringMD5(passWord).equals(admin.getPassWord())) {
+		if (MdHelper.stringMd5(passWord).equals(admin.getPassWord())) {
 			String adminToken = modifyToken(admin);
 			return new CommonResult().success(adminToken);
 		}
@@ -122,7 +124,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 		}
 
 		admin.setEnabled(true);
-		admin.setPassWord(MD5Helper.stringMD5(admin.getPassWord()));
+		admin.setPassWord(MdHelper.stringMd5(admin.getPassWord()));
 
 		return save(admin);
 	}
@@ -131,8 +133,6 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 	public Admin editAdmin(Admin admin) {
 		Long id = admin.getId();
 		Admin original = get(id).get();
-		System.out.println("original " + original.toString());
-		System.out.println("now " + admin.toString());
 
 		BeanUtils.copyProperties(original, admin, "role", "nickName", "gender",
 				"avatar", "phone", "email", "enabled", "remarks");
@@ -175,11 +175,9 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 
 		Long id = admin.getId();
 		Admin original = get(id).get();
-		System.out.println("original " + original.toString());
-		System.out.println("now " + admin.toString());
 
-		BeanUtils.copyProperties(original, admin, "nickName", "gender", "avatar",
-				"phone", "email", "remarks");
+		BeanUtils.copyProperties(original, admin, "nickName", "gender",
+				"avatar", "phone", "email", "remarks");
 
 		save(admin);
 
@@ -201,10 +199,10 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
 			return new CommonResult().error("该用户不存在！");
 		}
 
-		if (MD5Helper.stringMD5(orgpsd).equals(admin.getPassWord())
+		if (MdHelper.stringMd5(orgpsd).equals(admin.getPassWord())
 				&& newpsd.equals(confirmpsd)) {
 
-			admin.setPassWord(MD5Helper.stringMD5(newpsd));
+			admin.setPassWord(MdHelper.stringMd5(newpsd));
 			save(admin);
 
 			return new CommonResult().success(null, "密码修改成功！");

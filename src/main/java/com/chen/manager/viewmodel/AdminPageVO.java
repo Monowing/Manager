@@ -142,4 +142,14 @@ public class AdminPageVO {
 		this.remarks = remarks;
 	}
 
+	@Override
+	public String toString() {
+		return "AdminPageVO [id=" + id + ", userName=" + userName
+				+ ", nickName=" + nickName + ", roleStr=" + roleStr
+				+ ", gender=" + gender + ", avatar=" + avatar + ", phone="
+				+ phone + ", email=" + email + ", enabled=" + enabled
+				+ ", remarks=" + remarks + "]";
+	}
+
+	
 }

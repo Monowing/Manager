@@ -11,8 +11,8 @@ import java.security.NoSuchAlgorithmException;
  * @author MonoWing
  *
  */
-public class MD5Helper {
-	
+public class MdHelper {
+
 	/**
 	 * 获取加密后的字符串
 	 * 
@@ -20,7 +20,7 @@ public class MD5Helper {
 	 *            需要加密的字符串
 	 * @return
 	 */
-	public static String stringMD5(String str) {
+	public static String stringMd5(String str) {
 		try {
 			// 拿到一个MD5转换器（如果想要SHA1参数换成”SHA1”）
 			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -39,7 +39,8 @@ public class MD5Helper {
 
 	private static String byteArrayToHex(byte[] byteArray) {
 		// 首先初始化一个字符数组，用来存放每个16进制字符
-		char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9','A', 'B', 'C', 'D', 'E', 'F' };
+		char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+				'A', 'B', 'C', 'D', 'E', 'F' };
 		// new一个字符数组，这个就是用来组成结果字符串的（解释一下：一个byte是八位二进制，也就是2位十六进制字符（2的8次方等于16的2次方））
 		char[] resultCharArray = new char[byteArray.length * 2];
 		// 遍历字节数组，通过位运算（位运算效率高），转换成字符放到字符数组中去

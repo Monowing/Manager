@@ -29,11 +29,24 @@ public class UploadController {
 
 	@Autowired
 	private UploadService uploadService;
-	
-	
-	@RequestMapping(value = "/uploadFile/{ftype}", method = RequestMethod.POST, produces = {"application/json"})
+
+	/**
+	 * 文件上传
+	 * 
+	 * @param file
+	 *            文件
+	 * @param ftype
+	 *            文件类型
+	 * @param req
+	 * @param resp
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/uploadFile/{ftype}", method = RequestMethod.POST, produces = { "application/json" })
 	@ResponseBody
-	public CommonResult upLoadFile(MultipartFile file,@PathVariable("ftype") String ftype,HttpServletRequest req,HttpServletResponse resp) throws IOException {
+	public CommonResult upLoadFile(MultipartFile file,
+			@PathVariable("ftype") String ftype, HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
 
 		if (file == null) {
 			return new CommonResult().error("请选择要上传文件!");
@@ -41,5 +54,4 @@ public class UploadController {
 		return uploadService.uploadLocal(ftype, file);
 	}
 
-	
 }

@@ -14,6 +14,15 @@ import com.chen.manager.viewmodel.CommonResult;
  */
 public interface UploadService {
 
+	/**
+	 * 文件上传
+	 * 
+	 * @param ftype
+	 *            文件类型
+	 * @param file
+	 *            文件
+	 * @return
+	 */
 	CommonResult uploadLocal(String ftype, MultipartFile file);
 
 }

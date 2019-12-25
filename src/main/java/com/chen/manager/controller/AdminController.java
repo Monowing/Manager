@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chen.manager.common.Constants;
 import com.chen.manager.entity.Admin;
 import com.chen.manager.enumbean.Gender;
 import com.chen.manager.service.AdminService;
@@ -159,7 +160,7 @@ public class AdminController {
 		System.out.println(onUsed);
 		System.out.println(admin.toString());
 
-		if ("on".equals(onUsed)) {
+		if (Constants.RADIO_CHECKED_ON.equals(onUsed)) {
 			admin.setEnabled(true);
 		} else {
 			admin.setEnabled(false);

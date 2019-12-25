@@ -23,10 +23,17 @@ import com.chen.manager.service.AdminService;
 
 /**
  * 自定义拦截器
+ * 
+ * created at 2019-11-26
+ * 
+ * @author Administrator
+ *
  */
 public class CommonInterceptor implements HandlerInterceptor {
 	
 
+	private static final String TOKEN_STR = "token";
+	
 	@Autowired
 	AdminService adminService;
 	
@@ -35,7 +42,8 @@ public class CommonInterceptor implements HandlerInterceptor {
 		//System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
 		boolean ajaxRequest = isAjaxRequest(request);
 		
-		String token = ajaxRequest?request.getHeader("token"):request.getParameter("token");// 从 http 请求头中取出 token
+		// 从 http 请求头中取出 token
+		String token = ajaxRequest?request.getHeader(TOKEN_STR):request.getParameter(TOKEN_STR);
         
 		// 如果不是映射到方法直接通过
         if(!(handler instanceof HandlerMethod)){
@@ -106,7 +114,8 @@ public class CommonInterceptor implements HandlerInterceptor {
             }
         }
         
-		return true;// 只有返回true才会继续向下执行，返回false取消当前请求
+        // 只有返回true才会继续向下执行，返回false取消当前请求
+		return true;
 	}
 
 	@Override

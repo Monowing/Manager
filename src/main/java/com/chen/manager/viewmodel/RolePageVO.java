@@ -76,5 +76,13 @@ public class RolePageVO {
 		this.createDate = createDate;
 	}
 
+	@Override
+	public String toString() {
+		return "RolePageVO [id=" + id + ", name=" + name + ", description="
+				+ description + ", internalSign=" + internalSign
+				+ ", createDate=" + createDate + "]";
+	}
+
+	
 
 }

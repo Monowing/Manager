@@ -50,9 +50,10 @@ public class MineController {
 	}
 
 	/**
-	 * 设置我的资料
+	 * 我的——设置我的资料
 	 * 
 	 * @param admin
+	 *            管理员信息
 	 * @return
 	 */
 	@PostMapping("/edit")
@@ -63,11 +64,27 @@ public class MineController {
 		return new CommonResult().success();
 	}
 
+	/**
+	 * 我的——密码修改
+	 * 
+	 * @param userName
+	 *            用户名
+	 * @param orgpsd
+	 *            原始密码
+	 * @param newpsd
+	 *            新密码
+	 * @param confirmpsd
+	 *            确认密码
+	 * @param token
+	 *            Token
+	 * @return
+	 */
 	@PostMapping("/psdChange")
 	@ResponseBody
-	public CommonResult psdChange(String userName,String orgpsd, String newpsd,
-			String confirmpsd, String token) {
-		System.out.println(orgpsd + " "+ newpsd + " "+ confirmpsd + " "+ token);
-		return adminService.changePassword(orgpsd,newpsd,confirmpsd,token);
+	public CommonResult psdChange(String userName, String orgpsd,
+			String newpsd, String confirmpsd, String token) {
+		System.out.println(orgpsd + " " + newpsd + " " + confirmpsd + " "
+				+ token);
+		return adminService.changePassword(orgpsd, newpsd, confirmpsd, token);
 	}
 }

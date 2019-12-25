@@ -38,9 +38,7 @@ public interface RoleService extends BaseService<Role, Long> {
 
 	/**
 	 * 删除角色
-	 * 
-	 * @param longIds
-	 *            角色ID的list
+	 * @param ids 角色ID的list
 	 * @return
 	 */
 	CommonResult deleteRole(List<Long> ids);

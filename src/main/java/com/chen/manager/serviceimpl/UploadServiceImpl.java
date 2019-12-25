@@ -23,8 +23,8 @@ import com.chen.manager.viewmodel.CommonResult;
  * @author MonoWing
  *
  */
-@Transactional
 @Service
+@Transactional
 public class UploadServiceImpl implements UploadService, ServletContextAware {
 
 	/**
@@ -43,6 +43,7 @@ public class UploadServiceImpl implements UploadService, ServletContextAware {
 
 	private ServletContext servletContext;
 
+	@Override
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}

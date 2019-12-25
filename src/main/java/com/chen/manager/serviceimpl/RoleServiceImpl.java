@@ -51,8 +51,6 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements
 	public Role editRole(Role role) {
 		Long id = role.getId();
 		Role original = get(id).get();
-		System.out.println("original " + original.toString());
-		System.out.println("now " + role.toString());
 
 		BeanUtils.copyProperties(original, role, "name", "description");
 
