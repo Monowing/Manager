@@ -36,7 +36,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">角色</label>
 					<div class="layui-input-inline">
-						<select name="role" lay-verify=""> 
+						<select name="role" lay-verify="">
 							<#list roleList as item>
 								<option value="${item.id}">${item.name}</option>
 							</#list>
@@ -102,7 +102,7 @@
 	<script src="/js/bootstrap.min.js?v=3.3.6"></script>
 	<script src="/plugins/layui/layui.js"></script>
 	<script src="/js/common.js"></script>
-	
+
 	<script>
 		layui.use([ 'form', 'layedit', 'laydate' ], function() {
 			var form = layui.form;

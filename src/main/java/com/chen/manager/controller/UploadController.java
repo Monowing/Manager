@@ -18,40 +18,37 @@ import com.chen.manager.viewmodel.CommonResult;
 
 /**
  * 系统——文件上传
- * 
+ * <p>
  * created at 2019-12-12
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 @Controller
 public class UploadController {
 
-	@Autowired
-	private UploadService uploadService;
+    @Autowired
+    private UploadService uploadService;
 
-	/**
-	 * 文件上传
-	 * 
-	 * @param file
-	 *            文件
-	 * @param ftype
-	 *            文件类型
-	 * @param req
-	 * @param resp
-	 * @return
-	 * @throws IOException
-	 */
-	@RequestMapping(value = "/uploadFile/{ftype}", method = RequestMethod.POST, produces = { "application/json" })
-	@ResponseBody
-	public CommonResult upLoadFile(MultipartFile file,
-			@PathVariable("ftype") String ftype, HttpServletRequest req,
-			HttpServletResponse resp) throws IOException {
+    /**
+     * 文件上传
+     *
+     * @param file  文件
+     * @param ftype 文件类型
+     * @param req
+     * @param resp
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/uploadFile/{ftype}", method = RequestMethod.POST, produces = {"application/json"})
+    @ResponseBody
+    public CommonResult upLoadFile(MultipartFile file,
+                                   @PathVariable("ftype") String ftype, HttpServletRequest req,
+                                   HttpServletResponse resp) throws IOException {
 
-		if (file == null) {
-			return new CommonResult().error("请选择要上传文件!");
-		}
-		return uploadService.uploadLocal(ftype, file);
-	}
+        if (file == null) {
+            return new CommonResult().error("请选择要上传文件!");
+        }
+        return uploadService.uploadLocal(ftype, file);
+    }
 
 }

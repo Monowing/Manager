@@ -10,24 +10,23 @@ import com.chen.manager.service.SysLogService;
 
 /**
  * ServiceImpl层——系统日志
- * 
+ * <p>
  * created at 2019-12-24
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 
 @Transactional
 @Service
 public class SysLogServiceImpl extends BaseServiceImpl<SysLog, Long> implements
-		SysLogService {
+        SysLogService {
 
-	@Autowired
-	private SysLogDao sysLogDao;
+    @Autowired
+    private SysLogDao sysLogDao;
 
-	@Autowired
-	public void setBaseDao(SysLogDao sysLogDao) {
-		super.setBaseDao(sysLogDao);
-	}
+    @Autowired
+    public void setBaseDao(SysLogDao sysLogDao) {
+        super.setBaseDao(sysLogDao);
+    }
 
 }

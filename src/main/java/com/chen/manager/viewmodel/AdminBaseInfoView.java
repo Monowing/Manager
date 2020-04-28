@@ -5,127 +5,126 @@ import com.chen.manager.enumbean.Gender;
 
 /**
  * 管理员基本信息展示类
- * 
+ * <p>
  * created at 2019-11-12
- * 
- * @author Administrator
  *
+ * @author Administrator
  */
 public class AdminBaseInfoView {
 
-	/**
-	 * ID
-	 */
-	private Long id;
+    /**
+     * ID
+     */
+    private Long id;
 
-	/**
-	 * 用户名
-	 */
-	private String userName;
+    /**
+     * 用户名
+     */
+    private String userName;
 
-	/**
-	 * 昵称
-	 */
-	private String nickName;
+    /**
+     * 昵称
+     */
+    private String nickName;
 
-	/**
-	 * 性别
-	 */
-	private Gender gender;
+    /**
+     * 性别
+     */
+    private Gender gender;
 
-	/**
-	 * 头像
-	 */
-	private String avatar;
+    /**
+     * 头像
+     */
+    private String avatar;
 
-	/**
-	 * 电话
-	 */
-	private String phone;
+    /**
+     * 电话
+     */
+    private String phone;
 
-	/**
-	 * 邮箱
-	 */
-	private String email;
+    /**
+     * 邮箱
+     */
+    private String email;
 
-	/**
-	 * 备注
-	 */
-	private String remarks;
+    /**
+     * 备注
+     */
+    private String remarks;
 
-	public AdminBaseInfoView(Admin admin) {
-		this.id = admin.getId();
-		this.userName = admin.getUserName();
-		this.nickName = admin.getNickName();
-		this.avatar = admin.getAvatar();
-		this.gender = admin.getGender();
-		this.phone = admin.getPhone();
-		this.email = admin.getEmail();
-		this.remarks = admin.getRemarks();
-	}
+    public AdminBaseInfoView(Admin admin) {
+        this.id = admin.getId();
+        this.userName = admin.getUserName();
+        this.nickName = admin.getNickName();
+        this.avatar = admin.getAvatar();
+        this.gender = admin.getGender();
+        this.phone = admin.getPhone();
+        this.email = admin.getEmail();
+        this.remarks = admin.getRemarks();
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public String getNickName() {
-		return nickName;
-	}
+    public String getNickName() {
+        return nickName;
+    }
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
-	public Gender getGender() {
-		return gender;
-	}
+    public Gender getGender() {
+        return gender;
+    }
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
-	public String getAvatar() {
-		return avatar;
-	}
+    public String getAvatar() {
+        return avatar;
+    }
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getRemarks() {
-		return remarks;
-	}
+    public String getRemarks() {
+        return remarks;
+    }
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 
 }

@@ -1,241 +1,244 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>基本资料</title>
-<link rel="stylesheet" href="/plugins/layui/css/layui.css">
-<link rel="stylesheet" href="/css/common.css">
+    <meta charset="UTF-8">
+    <title>基本资料</title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 
 <body>
 
-	<div class="layui-fluid">
-		<div class="layui-row margin-top-5">
-			<div class="layui-col-md12">
-				<div class="layui-card">
-					<div class="layui-card-header">设置我的资料</div>
-					<div class="layui-card-body" pad15="">
+<div class="layui-fluid">
+    <div class="layui-row margin-top-5">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">设置我的资料</div>
+                <div class="layui-card-body" pad15="">
 
-						<form class="layui-form" id="baseInfoForm" lay-filter="">
-							<input id="id" name="id" type="hidden">
-							<div class="layui-form-item">
-								<label class="layui-form-label">用户名</label>
-								<div class="layui-input-inline">
-									<input type="text" id="userName" name="userName" readonly=""
-										class="layui-input">
-								</div>
-								<div class="layui-form-mid layui-word-aux">不可修改。一般作为后台登录账户</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">昵称</label>
-								<div class="layui-input-inline">
-									<input type="text" id="nickName" name="nickName"
-										autocomplete="off" placeholder="请输入昵称" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">性别</label>
-								<div class="layui-input-block">
-									<#list genderList as item> <input type="radio" name="gender"
-										value="${item}" title="${item.desc}"> </#list>
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">头像</label>
-								<div class="layui-input-inline">
-									<input id="avatar" name="avatar" lay-verify="required"
-										id="LAY_avatarSrc" placeholder="图片地址" class="layui-input">
-								</div>
-								<div class="layui-input-inline layui-btn-container"
-									style="width: auto;">
-									<button type="button" class="layui-btn layui-btn-primary"
-										id="avatarUpload">
-										<i class="layui-icon"></i>上传头像
-									</button>
-									<input class="layui-upload-file" type="file" accept="undefined"
-										name="file">
-									<button type="button" class="layui-btn layui-btn-primary"
-										onclick="showImg()">查看图片</button>
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">手机</label>
-								<div class="layui-input-inline">
-									<input type="text" name="phone" lay-verify="phone" id="phone"
-										autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">邮箱</label>
-								<div class="layui-input-inline">
-									<input type="text" id="email" name="email" lay-verify="email"
-										autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item layui-form-text">
-								<label class="layui-form-label">备注</label>
-								<div class="layui-input-block">
+                    <form class="layui-form" id="baseInfoForm" lay-filter="">
+                        <input id="id" name="id" type="hidden">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="userName" name="userName" readonly=""
+                                       class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">不可修改。一般作为后台登录账户</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">昵称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="nickName" name="nickName"
+                                       autocomplete="off" placeholder="请输入昵称" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-block">
+                                <#list genderList as item> <input type="radio" name="gender"
+                                                                  value="${item}" title="${item.desc}"></
+                            #list>
+                        </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">头像</label>
+                    <div class="layui-input-inline">
+                        <input id="avatar" name="avatar" lay-verify="required"
+                               id="LAY_avatarSrc" placeholder="图片地址" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-btn-container"
+                         style="width: auto;">
+                        <button type="button" class="layui-btn layui-btn-primary"
+                                id="avatarUpload">
+                            <i class="layui-icon"></i>上传头像
+                        </button>
+                        <input class="layui-upload-file" type="file" accept="undefined"
+                               name="file">
+                        <button type="button" class="layui-btn layui-btn-primary"
+                                onclick="showImg()">查看图片
+                        </button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="phone" lay-verify="phone" id="phone"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="email" name="email" lay-verify="email"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
 									<textarea id="remarks" name="remarks" placeholder="请输入内容"
-										class="layui-textarea"></textarea>
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<div class="layui-input-block">
-									<button class="layui-btn" lay-submit="" lay-filter="edit">确认修改</button>
-									<button class="layui-btn layui-btn-primary"
-										onclick="resetBaseInfo()">重新填写</button>
-								</div>
-							</div>
-						</form>
+                                              class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="edit">确认修改</button>
+                        <button class="layui-btn layui-btn-primary"
+                                onclick="resetBaseInfo()">重新填写
+                        </button>
+                    </div>
+                </div>
+                </form>
 
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
-	<script src="/js/jquery.min.js?v=2.1.4"></script>
-	<script src="/plugins/layui/layui.js"></script>
-	<script src="/js/common.js"></script>
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/plugins/layui/layui.js"></script>
+<script src="/js/common.js"></script>
 
 
-	<script type="text/javascript">
-		$(document).ready(function() {
+<script type="text/javascript">
+    $(document).ready(function () {
 
-			initBaseInfo();
+        initBaseInfo();
 
-		});
+    });
 
-		layui.use([ 'form', 'layedit', 'laydate', 'upload' ], function() {
-			var form = layui.form;
-			var layer = layui.layer;
-			var layedit = layui.layedit;
-			var laydate = layui.laydate;
-			var upload = layui.upload;
+    layui.use(['form', 'layedit', 'laydate', 'upload'], function () {
+        var form = layui.form;
+        var layer = layui.layer;
+        var layedit = layui.layedit;
+        var laydate = layui.laydate;
+        var upload = layui.upload;
 
-			//执行实例
-			var uploadInst = upload.render({
-				elem : '#avatarUpload',//绑定元素
-				url : '/uploadFile/avatar',//上传接口
-				done : function(res) {
-					//上传完毕回调
-					layer.msg("上传成功")
-					setImgPath(res.data);
-				},
-				error : function() {
-					//请求异常回调
-					layer.msg("请求异常")
-				}
-			});
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#avatarUpload',//绑定元素
+            url: '/uploadFile/avatar',//上传接口
+            done: function (res) {
+                //上传完毕回调
+                layer.msg("上传成功")
+                setImgPath(res.data);
+            },
+            error: function () {
+                //请求异常回调
+                layer.msg("请求异常")
+            }
+        });
 
-			//自定义验证规则
-			form.verify({
-				phone : function(value) {
-					if (!myStringUtils.isEmpty(value)
-							&& !myCommonUtils.phoneCheck(value)) {
-						return "请输入正确的手机号";
-					}
-				},
-				email : function(value) {
-					if (!myStringUtils.isEmpty(value)
-							&& !myCommonUtils.emailCheck(value)) {
-						return "请输入正确的邮箱地址";
-					}
-				}
-			});
+        //自定义验证规则
+        form.verify({
+            phone: function (value) {
+                if (!myStringUtils.isEmpty(value)
+                    && !myCommonUtils.phoneCheck(value)) {
+                    return "请输入正确的手机号";
+                }
+            },
+            email: function (value) {
+                if (!myStringUtils.isEmpty(value)
+                    && !myCommonUtils.emailCheck(value)) {
+                    return "请输入正确的邮箱地址";
+                }
+            }
+        });
 
-			//监听提交
-			form.on('submit(edit)', function(data) {
-				layer.confirm('确认修改？', function(index) {
-					updateBaseInfo();
-					layer.close(index);
-				});
-				return false;
-			});
+        //监听提交
+        form.on('submit(edit)', function (data) {
+            layer.confirm('确认修改？', function (index) {
+                updateBaseInfo();
+                layer.close(index);
+            });
+            return false;
+        });
 
-		});
+    });
 
-		function initBaseInfo() {
-			$.ajax({
-				url : '/admin/admin/getAdminBaseInfoView',
-				type : 'get',
-				data : {
-					token : localStorage.getItem(theToken)
-				},
-				dataType : 'json',
-				success : function(result) {
-					console.log(result);
+    function initBaseInfo() {
+        $.ajax({
+            url: '/admin/admin/getAdminBaseInfoView',
+            type: 'get',
+            data: {
+                token: localStorage.getItem(theToken)
+            },
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
 
-					if (result != null && result.code == 0
-							&& result.data != null) {
-						setBaseInfo(result.data);
-					} else {
-						layer.msg('数据获取失败');
-					}
+                if (result != null && result.code == 0
+                    && result.data != null) {
+                    setBaseInfo(result.data);
+                } else {
+                    layer.msg('数据获取失败');
+                }
 
-				}
+            }
 
-			});
-		}
+        });
+    }
 
-		function setImgPath(path) {
-			$('#avatar').val(path);
-		}
+    function setImgPath(path) {
+        $('#avatar').val(path);
+    }
 
-		function showImg() {
+    function showImg() {
 
-			var img = "<img src='" + $('#avatar').val() + "' />";
-			layer.open({
-				type : 1,
-				shift : 2,
-				shade : 0,
-				title : '查看图片',
-				shadeClose : true,
-				content : img
-			});
+        var img = "<img src='" + $('#avatar').val() + "' />";
+        layer.open({
+            type: 1,
+            shift: 2,
+            shade: 0,
+            title: '查看图片',
+            shadeClose: true,
+            content: img
+        });
 
-		}
+    }
 
-		function setBaseInfo(data) {
-			if (data == null) {
-				return false;
-			}
-			console.log(data);
-			$('#id').val(data.id);
-			$('#userName').val(data.userName);
-			$('#nickName').val(data.nickName);
-			$(":radio[name='gender'][value=" + data.gender + "]").attr(
-					"checked", "true");
-			$('#avatar').val(data.avatar);
-			$('#phone').val(data.phone);
-			$('#email').val(data.email);
-			$('#remarks').val(data.remarks);
+    function setBaseInfo(data) {
+        if (data == null) {
+            return false;
+        }
+        console.log(data);
+        $('#id').val(data.id);
+        $('#userName').val(data.userName);
+        $('#nickName').val(data.nickName);
+        $(":radio[name='gender'][value=" + data.gender + "]").attr(
+            "checked", "true");
+        $('#avatar').val(data.avatar);
+        $('#phone').val(data.phone);
+        $('#email').val(data.email);
+        $('#remarks').val(data.remarks);
 
-		}
+    }
 
-		function resetBaseInfo() {
-			layer.confirm('该操作将覆盖已修改的内容，是否重新填写？', function(index) {
-				initBaseInfo();
-				layer.close(index);
-			});
-		}
+    function resetBaseInfo() {
+        layer.confirm('该操作将覆盖已修改的内容，是否重新填写？', function (index) {
+            initBaseInfo();
+            layer.close(index);
+        });
+    }
 
-		function updateBaseInfo() {
-			$.ajax({
-				url : '/admin/mine/edit',
-				type : 'post',
-				data : $("#baseInfoForm").serialize(),
-				dataType : 'json',
-				success : function(result) {
-					if (result != null && result.code == 0) {
-						layer.msg('修改成功');
-					} else {
-						layer.msg('修改失败');
-					}
-				}
-			});
-		}
-	</script>
+    function updateBaseInfo() {
+        $.ajax({
+            url: '/admin/mine/edit',
+            type: 'post',
+            data: $("#baseInfoForm").serialize(),
+            dataType: 'json',
+            success: function (result) {
+                if (result != null && result.code == 0) {
+                    layer.msg('修改成功');
+                } else {
+                    layer.msg('修改失败');
+                }
+            }
+        });
+    }
+</script>
 
 </body>

@@ -1,300 +1,300 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title></title>
-<meta name="renderer" content="webkit">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all">
-<link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
 
-	<div class="layui-fluid">
-		<div class="layui-row margin-top-5">
+<div class="layui-fluid">
+    <div class="layui-row margin-top-5">
 
 
+        <div class="demoTable">
+            搜索角色名：
+            <div class="layui-inline">
+                <input class="layui-input" name="keyword" id="keyword"
+                       autocomplete="off">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+        </div>
 
-			<div class="demoTable">
-				搜索角色名：
-				<div class="layui-inline">
-					<input class="layui-input" name="keyword" id="keyword"
-						autocomplete="off">
-				</div>
-				<button class="layui-btn" data-type="reload">搜索</button>
-			</div>
+        <table class="layui-hide" id="roleTable" lay-filter="roleTable"></table>
+    </div>
+</div>
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/plugins/layui/layui.js" charset="utf-8"></script>
+<script src="/js/common.js"></script>
 
-			<table class="layui-hide" id="roleTable" lay-filter="roleTable"></table>
-		</div>
-	</div>
-	<script src="/js/jquery.min.js?v=2.1.4"></script>
-	<script src="/plugins/layui/layui.js" charset="utf-8"></script>
-	<script src="/js/common.js"></script>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除</button>
+    </div>
+</script>
 
-	<script type="text/html" id="toolbarDemo">
-  		<div class="layui-btn-container">
-			<button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
-			<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除</button>
-  		</div>
-	</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 
-	<script type="text/html" id="barDemo">
-  		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-	</script>
+<script>
+    var currPage = 1;
 
-	<script>
-		var currPage = 1;
+    layui.use('table', function () {
+        var table = layui.table;
 
-		layui.use('table', function() {
-			var table = layui.table;
-
-			table.render({
-				elem : '#roleTable',
-				url : '/admin/role/page',
-				method : 'post',
-				toolbar : '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
-				defaultToolbar : [ 'filter', /* 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+        table.render({
+            elem: '#roleTable',
+            url: '/admin/role/page',
+            method: 'post',
+            toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
+            defaultToolbar: ['filter', /* 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
 					title : '提示',
 					layEvent : 'LAYTABLE_TIPS',
 					icon : 'layui-icon-tips'
-				} */ ],
-				where: {
-					keyword:  ""
-				},
-				title : '用户数据表',
-				cols : [ [ {
-					type : 'checkbox',
-					fixed : 'left'
-				}, {
-					field : 'id',
-					title : 'ID',
-					width : 80,
-					fixed : 'left',
-					unresize : true,
-					sort : true
-				}, {
-					field : 'name',
-					title : '角色名',
-					width : 120,
-				}, {
-					field : 'internalSign',
-					title : '是否内置',
-					width : 120,
-					templet: function(d){
-						if(d.internalSign == null || d.internalSign == false){
-							return '是';
-						}
-						return '否';
-					}
-				}, {
-					field : 'description',
-					title : '描述'
-				},  {
-					field : 'createDate',
-					title : '创建日期',
-				}, {
-					fixed : 'right',
-					title : '操作',
-					toolbar : '#barDemo',
-					width : 150
-				} ] ],
-				page : true,
-				done : function(res, curr, count) {
-					console.log(res);
-					console.log(curr);
-					console.log(count);
+				} */],
+            where: {
+                keyword: ""
+            },
+            title: '用户数据表',
+            cols: [[{
+                type: 'checkbox',
+                fixed: 'left'
+            }, {
+                field: 'id',
+                title: 'ID',
+                width: 80,
+                fixed: 'left',
+                unresize: true,
+                sort: true
+            }, {
+                field: 'name',
+                title: '角色名',
+                width: 120,
+            }, {
+                field: 'internalSign',
+                title: '是否内置',
+                width: 120,
+                templet: function (d) {
+                    if (d.internalSign == null || d.internalSign == false) {
+                        return '是';
+                    }
+                    return '否';
+                }
+            }, {
+                field: 'description',
+                title: '描述'
+            }, {
+                field: 'createDate',
+                title: '创建日期',
+            }, {
+                fixed: 'right',
+                title: '操作',
+                toolbar: '#barDemo',
+                width: 150
+            }]],
+            page: true,
+            done: function (res, curr, count) {
+                console.log(res);
+                console.log(curr);
+                console.log(count);
 
-					currPage = curr;
-				}
-			});
+                currPage = curr;
+            }
+        });
 
-			//头工具栏事件
-			table.on('toolbar(roleTable)', function(obj) {
-				var checkStatus = table.checkStatus(obj.config.id);
-				switch (obj.event) {
-				case 'add':
-					addItem(table);//
-					break;
-				case 'delete':
-					var data = checkStatus.data;
+        //头工具栏事件
+        table.on('toolbar(roleTable)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'add':
+                    addItem(table);//
+                    break;
+                case 'delete':
+                    var data = checkStatus.data;
 
-					if (data.length == 0) {
-						layer.alert('请先勾选数据！');
-						break;
-					}
+                    if (data.length == 0) {
+                        layer.alert('请先勾选数据！');
+                        break;
+                    }
 
-					layer.confirm('确认删除选中行？', function(index) {
-						var ids = [];
-						$.each(data, function(i, item) {
-							ids.push(item.id);
-						});
-						deleteItem(table, ids);
-						layer.close(index);
-					});
+                    layer.confirm('确认删除选中行？', function (index) {
+                        var ids = [];
+                        $.each(data, function (i, item) {
+                            ids.push(item.id);
+                        });
+                        deleteItem(table, ids);
+                        layer.close(index);
+                    });
 
-					break;
-				/* //自定义头工具栏右侧图标 - 提示
-				case 'LAYTABLE_TIPS':
-					layer.alert('这是工具栏右侧自定义的一个图标按钮');
-					break;*/
-				} 
+                    break;
+                /* //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    break;*/
+            }
 
-			});
+        });
 
-			//监听行工具事件
-			table.on('tool(roleTable)', function(obj) {
-				var data = obj.data;
-				if (obj.event === 'del') {
-					layer.confirm('确认删除该行数据？', function(index) {
-						deleteItem(table, [ data.id ]);
-						layer.close(index);
-					});
-				} else if (obj.event === 'edit') {
-					console.log(data.id)
-					editItem(table, data.id);
-				}
-			});
-			
-			var $ = layui.$, active = {
-					reload: function(){
-						var demoReload = $('#keyword');
-						//执行重载
-						table.reload('roleTable', {
-							page: {
-								curr: 1 //重新从第 1 页开始
-							},
-							where: {
-								keyword: demoReload.val()
-							}
-						}, 'data');
-					}
-			};
-			
-			$('.demoTable .layui-btn').on('click', function(){
-			    var type = $(this).data('type');
-			    active[type] ? active[type].call(this) : '';
-			});
-		});
+        //监听行工具事件
+        table.on('tool(roleTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('确认删除该行数据？', function (index) {
+                    deleteItem(table, [data.id]);
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                console.log(data.id)
+                editItem(table, data.id);
+            }
+        });
 
-		function addItem(table) {
-			layer.open({
-				id : 'add_item',//设定一个id，防止重复弹出
-				type : 2,
-				title : '新增',
-				shadeClose : true,
-				shade : [ 0.8, '#393D49' ],
-				maxmin : false,//开启最大化最小化按钮
-				area : [ '835px', '480px' ],
-				btn : [ '保存', '关闭' ],
-				content : [ '/admin/role/add' ],
-				yes : function(index, layero) {
-					//得到iframe页的窗口对象
-					var iframeWin = window[layero.find('iframe')[0]['name']];
-					//执行iframe页的showMsg方法
-					if (iframeWin.validOk()) {
-						iframeWin.submitForm().then(function(data) {
-							console.log(data);
-							if (data.code == 0) {
+        var $ = layui.$, active = {
+            reload: function () {
+                var demoReload = $('#keyword');
+                //执行重载
+                table.reload('roleTable', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    },
+                    where: {
+                        keyword: demoReload.val()
+                    }
+                }, 'data');
+            }
+        };
 
-								reloadTable(table,1);
-								//刷新列表
-								layer.close(index);
-							}
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
 
-						}, function() {
-						});
+    function addItem(table) {
+        layer.open({
+            id: 'add_item',//设定一个id，防止重复弹出
+            type: 2,
+            title: '新增',
+            shadeClose: true,
+            shade: [0.8, '#393D49'],
+            maxmin: false,//开启最大化最小化按钮
+            area: ['835px', '480px'],
+            btn: ['保存', '关闭'],
+            content: ['/admin/role/add'],
+            yes: function (index, layero) {
+                //得到iframe页的窗口对象
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                //执行iframe页的showMsg方法
+                if (iframeWin.validOk()) {
+                    iframeWin.submitForm().then(function (data) {
+                        console.log(data);
+                        if (data.code == 0) {
 
-					}
+                            reloadTable(table, 1);
+                            //刷新列表
+                            layer.close(index);
+                        }
 
-				},
-				btn2 : function(index, layero) {
-					layer.closeAll();
-				},
-			});
+                    }, function () {
+                    });
 
-		}
+                }
 
-		function editItem(table, id) {
+            },
+            btn2: function (index, layero) {
+                layer.closeAll();
+            },
+        });
 
-			layer.open({
-				id : 'edit_item',//设定一个id，防止重复弹出
-				type : 2,
-				title : '编辑',
-				shadeClose : true,
-				shade : [ 0.8, '#393D49' ],
-				maxmin : false,//开启最大化最小化按钮
-				area : [ '835px', '480px' ],
-				btn : [ '保存', '关闭' ],
-				content : [ '/admin/role/edit?id=' + id ],
-				yes : function(index, layero) {
-					//得到iframe页的窗口对象
-					var iframeWin = window[layero.find('iframe')[0]['name']];
-					//执行iframe页的showMsg方法
-					if (iframeWin.validOk()) {
-						iframeWin.submitForm().then(function(data) {
-							console.log(data);
-							if (data.code == 0) {
-								reloadTable(table,currPage);
-								//刷新列表
-								layer.close(index);
-							}
-						}, function() {
-						});
+    }
 
-					}
+    function editItem(table, id) {
 
-				},
-				btn2 : function(index, layero) {
-					layer.closeAll();
-				},
-			});
+        layer.open({
+            id: 'edit_item',//设定一个id，防止重复弹出
+            type: 2,
+            title: '编辑',
+            shadeClose: true,
+            shade: [0.8, '#393D49'],
+            maxmin: false,//开启最大化最小化按钮
+            area: ['835px', '480px'],
+            btn: ['保存', '关闭'],
+            content: ['/admin/role/edit?id=' + id],
+            yes: function (index, layero) {
+                //得到iframe页的窗口对象
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                //执行iframe页的showMsg方法
+                if (iframeWin.validOk()) {
+                    iframeWin.submitForm().then(function (data) {
+                        console.log(data);
+                        if (data.code == 0) {
+                            reloadTable(table, currPage);
+                            //刷新列表
+                            layer.close(index);
+                        }
+                    }, function () {
+                    });
 
-		}
+                }
 
-		function deleteItem(table, ids) {
-			console.log(ids)
+            },
+            btn2: function (index, layero) {
+                layer.closeAll();
+            },
+        });
 
-			$.ajax({
-				url : '/admin/role/delete',
-				type : 'post',
-				data : {
-					ids : ids.toString()
-				},
-				dataType : 'json',
-				success : function(result){
-					console.log(result);
-					
-					if(result != null){
-						layer.msg(result.msg);
-					}
-					
-					reloadTable(table,currPage);
-	            },
-	            error(err) {
-	            	layer.msg("服務器异常！")
-	                console.log(err);
-	            }
+    }
 
-			});
-			
-			
-		}
-		function reloadTable(table,pageNum){
-			$("#roleTable").empty();
-			table.reload("roleTable", { //此处是上文提到的 初始化标识id
-				page : {
-					curr : pageNum
-				}
-			});
-		}
-		 
-	</script>
-	<script type="text/javascript">
-		
-	</script>
+    function deleteItem(table, ids) {
+        console.log(ids)
+
+        $.ajax({
+            url: '/admin/role/delete',
+            type: 'post',
+            data: {
+                ids: ids.toString()
+            },
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+
+                if (result != null) {
+                    layer.msg(result.msg);
+                }
+
+                reloadTable(table, currPage);
+            },
+            error(err) {
+                layer.msg("服務器异常！")
+                console.log(err);
+            }
+
+        });
+
+
+    }
+
+    function reloadTable(table, pageNum) {
+        $("#roleTable").empty();
+        table.reload("roleTable", { //此处是上文提到的 初始化标识id
+            page: {
+                curr: pageNum
+            }
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>

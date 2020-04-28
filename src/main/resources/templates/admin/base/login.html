@@ -1,96 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>登录</title>
+    <meta charset="UTF-8">
+    <title>登录</title>
 
-<link rel="stylesheet" href="/plugins/layui/css/layui.css">
-<link rel="stylesheet" href="/css/login.css">
-<link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 <body class="bg-gray">
 
-	<div class="admin-login">
+<div class="admin-login">
 
-		<div class="admin-login-main">
-			<div class="admin-login-header admin-login-box">
-				<h2>Manager System</h2>
-				<p>a project for manager</p>
-			</div>
-			<div class="admin-login-box admin-login-body">
-				<div class="layui-form-item ">
-					<label class="admin-login-icon layui-icon layui-icon-username"
-						for="LAY-user-login-username"></label> <input type="text"
-						name="username" id="username" required placeholder="用户名"
-						class="layui-input">
-				</div>
-				<div class="layui-form-item">
-					<label class="admin-login-icon layui-icon layui-icon-password"
-						for="LAY-user-login-password"></label> <input type="password"
-						name="password" id="password" placeholder="密码" autocomplete="off"
-						class="layui-input">
-				</div>
-				<div class="layui-form-item">
-					<a class="layui-btn layui-btn-fluid" onclick="login()">登 入</a>
-				</div>
-			</div>
-		</div>
+    <div class="admin-login-main">
+        <div class="admin-login-header admin-login-box">
+            <h2>Manager System</h2>
+            <p>a project for manager</p>
+        </div>
+        <div class="admin-login-box admin-login-body">
+            <div class="layui-form-item ">
+                <label class="admin-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+                <input type="text" name="username" id="username" required placeholder="用户名" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="admin-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                <input type="password" name="password" id="password" placeholder="密码" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <a class="layui-btn layui-btn-fluid" onclick="login()">登 入</a>
+            </div>
+        </div>
+    </div>
 
 
+</div>
 
-	</div>
-	
-	<script src="/plugins/layui/layui.js"></script>
-	<script src="/js/jquery.min.js?v=2.1.4"></script>
-	<script src="/js/common.js"></script>
+<script src="/plugins/layui/layui.js"></script>
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/common.js"></script>
 
-	<script type="text/javascript">
-		var BASE_URL = '${request.contextPath}';
+<script type="text/javascript">
+    var BASE_URL = '${request.contextPath}';
 
-		layui.use('layer', function() {
-			var layer = layui.layer;
-		});
+    layui.use('layer', function () {
+        var layer = layui.layer;
+    });
 
-		function login() {
-			var username = $('#username').val();
-			var password = $('#password').val();
+    function login() {
+        var username = $('#username').val();
+        var password = $('#password').val();
 
-			if (username == "" || password == "") {
-				layer.msg("用户名和密码不能为空");
-				return;
-			}
+        if (username == "" || password == "") {
+            layer.msg("用户名和密码不能为空");
+            return;
+        }
 
-			$.ajax({
-				url : BASE_URL + '/loginWeb',
-				type : 'POST',
-				dataType : 'json',
-				data : {
-					userName : username,
-					passWord : password
-				},
-				success : function(data) {
-					if (data.code == SUCCESS_CODE) {
-						localStorage.setItem("token", data.data);
-						location.href = "/index?token=" + data.data;
-						location.href = "/index";
-					} else {
-						layer.msg(data.msg);
-					}
-				},
-				error : function(data) {
-					layer.alert("请求失败!");
-				}
-			});
-		}
+        $.ajax({
+            url: BASE_URL + '/loginWeb',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                userName: username,
+                passWord: password
+            },
+            success: function (data) {
+                if (data.code == SUCCESS_CODE) {
+                    localStorage.setItem("token", data.data);
+                    location.href = "/index?token=" + data.data;
+                    location.href = "/index";
+                } else {
+                    layer.msg(data.msg);
+                }
+            },
+            error: function (data) {
+                layer.alert("请求失败!");
+            }
+        });
+    }
 
-		//监听Enter事件
-		document.onkeydown = keyListener;
-		function keyListener(e) {
-			if (e.keyCode == 13) {
-				login();
-			}
-		}
-	</script>
+    //监听Enter事件
+    document.onkeydown = keyListener;
+
+    function keyListener(e) {
+        if (e.keyCode == 13) {
+            login();
+        }
+    }
+</script>
 
 </body>
 </html>

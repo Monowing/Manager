@@ -21,195 +21,193 @@ import com.chen.manager.viewmodel.CommonResult;
 
 /**
  * ServiceImpl层——系统管理员
- * 
+ * <p>
  * created at 2019-10-31
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 
 @Transactional
 @Service
 public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements
-		AdminService {
+        AdminService {
 
-	@Autowired
-	private AdminDao adminDao;
+    @Autowired
+    private AdminDao adminDao;
 
-	@Autowired
-	public void setBaseDao(AdminDao adminDao) {
-		super.setBaseDao(adminDao);
-	}
+    @Autowired
+    public void setBaseDao(AdminDao adminDao) {
+        super.setBaseDao(adminDao);
+    }
 
-	@Override
-	public CommonResult loginWeb(String userName, String passWord) {
+    @Override
+    public CommonResult loginWeb(String userName, String passWord) {
 
-		if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(passWord)) {
-			return new CommonResult().error("登录失败，用户名或者密码为空");
-		}
-		List<Admin> list = adminDao.findByUserName(userName);
-		if (list == null || list.size() <= 0) {
-			return new CommonResult().error("登录失败,用户名或密码错误");
-		}
-		if (list.size() > 1) {
-			Log.error("登录账号存在相同的：" + userName);
-			return new CommonResult().error("登录失败，账号信息异常");
-		}
-		Admin admin = list.get(0);
-		if (admin == null || admin.getId() <= 0) {
-			return new CommonResult().error("登录失败,用户名或密码错误");
-		}
-		if (MdHelper.stringMd5(passWord).equals(admin.getPassWord())) {
-			String adminToken = modifyToken(admin);
-			return new CommonResult().success(adminToken);
-		}
-		return new CommonResult().error("登录失败,用户名或密码错误");
+        if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(passWord)) {
+            return new CommonResult().error("登录失败，用户名或者密码为空");
+        }
+        List<Admin> list = adminDao.findByUserName(userName);
+        if (list == null || list.size() <= 0) {
+            return new CommonResult().error("登录失败,用户名或密码错误");
+        }
+        if (list.size() > 1) {
+            Log.error("登录账号存在相同的：" + userName);
+            return new CommonResult().error("登录失败，账号信息异常");
+        }
+        Admin admin = list.get(0);
+        if (admin == null || admin.getId() <= 0) {
+            return new CommonResult().error("登录失败,用户名或密码错误");
+        }
+        if (MdHelper.stringMd5(passWord).equals(admin.getPassWord())) {
+            String adminToken = modifyToken(admin);
+            return new CommonResult().success(adminToken);
+        }
+        return new CommonResult().error("登录失败,用户名或密码错误");
 
-	}
+    }
 
-	@Override
-	public void logoutWeb(String token) {
+    @Override
+    public void logoutWeb(String token) {
 
-		Long adminId = TokenHelper.getLongAdminId(token);
-		if (adminId == null || adminId <= 0) {
-			return;
-		}
+        Long adminId = TokenHelper.getLongAdminId(token);
+        if (adminId == null || adminId <= 0) {
+            return;
+        }
 
-		Admin admin = get(adminId).get();
-		if (admin == null) {
-			return;
-		}
+        Admin admin = get(adminId).get();
+        if (admin == null) {
+            return;
+        }
 
-		if (token.equals(admin.getToken())) {
-			modifyToken(admin);
-		}
-	}
+        if (token.equals(admin.getToken())) {
+            modifyToken(admin);
+        }
+    }
 
-	/**
-	 * 修改Token
-	 * 
-	 * @param admin
-	 *            系统管理员
-	 * @return 修改后的Token
-	 */
-	private String modifyToken(Admin admin) {
-		Date date = new Date();
-		String adminToken = TokenHelper.generateToken(admin.getId().toString(),
-				date.toString());
-		admin.setToken(adminToken);
-		admin.setTokenDate(date);
-		save(admin);
-		return adminToken;
-	}
+    /**
+     * 修改Token
+     *
+     * @param admin 系统管理员
+     * @return 修改后的Token
+     */
+    private String modifyToken(Admin admin) {
+        Date date = new Date();
+        String adminToken = TokenHelper.generateToken(admin.getId().toString(),
+                date.toString());
+        admin.setToken(adminToken);
+        admin.setTokenDate(date);
+        save(admin);
+        return adminToken;
+    }
 
-	@Override
-	public Admin getByToken(String token) {
-		Long adminId = TokenHelper.getLongAdminId(token);
-		if (adminId == null || adminId <= 0) {
-			return null;
-		}
-		return get(adminId).get();
-	}
+    @Override
+    public Admin getByToken(String token) {
+        Long adminId = TokenHelper.getLongAdminId(token);
+        if (adminId == null || adminId <= 0) {
+            return null;
+        }
+        return get(adminId).get();
+    }
 
-	@Override
-	public Page<Admin> pageAdmin(String keyword, PageRequest pageRequest) {
-		return adminDao.pageRole(fieldLike(keyword), pageRequest);
-	}
+    @Override
+    public Page<Admin> pageAdmin(String keyword, PageRequest pageRequest) {
+        return adminDao.pageRole(fieldLike(keyword), pageRequest);
+    }
 
-	@Override
-	public Admin insertAdmin(Admin admin) {
-		List<Admin> adminList = adminDao.findByUserName(admin.getUserName());
-		if (adminList != null && adminList.size() > 0) {
-			return null;
-		}
+    @Override
+    public Admin insertAdmin(Admin admin) {
+        List<Admin> adminList = adminDao.findByUserName(admin.getUserName());
+        if (adminList != null && adminList.size() > 0) {
+            return null;
+        }
 
-		admin.setEnabled(true);
-		admin.setPassWord(MdHelper.stringMd5(admin.getPassWord()));
+        admin.setEnabled(true);
+        admin.setPassWord(MdHelper.stringMd5(admin.getPassWord()));
 
-		return save(admin);
-	}
+        return save(admin);
+    }
 
-	@Override
-	public Admin editAdmin(Admin admin) {
-		Long id = admin.getId();
-		Admin original = get(id).get();
+    @Override
+    public Admin editAdmin(Admin admin) {
+        Long id = admin.getId();
+        Admin original = get(id).get();
 
-		BeanUtils.copyProperties(original, admin, "role", "nickName", "gender",
-				"avatar", "phone", "email", "enabled", "remarks");
+        BeanUtils.copyProperties(original, admin, "role", "nickName", "gender",
+                "avatar", "phone", "email", "enabled", "remarks");
 
-		return save(admin);
-	}
+        return save(admin);
+    }
 
-	@Override
-	public CommonResult deleteAdmin(List<Long> ids) {
-		CommonResult result = new CommonResult();
+    @Override
+    public CommonResult deleteAdmin(List<Long> ids) {
+        CommonResult result = new CommonResult();
 
-		if (ids == null || ids.size() <= 0) {
-			return result.error("数据为空，无法删除！");
-		}
+        if (ids == null || ids.size() <= 0) {
+            return result.error("数据为空，无法删除！");
+        }
 
-		for (Long id : ids) {
-			if (id == null || id <= 0) {
-				continue;
-			}
-			Admin admin = get(id).get();
-			if (admin == null || admin.getRole() == null) {
-				continue;
-			}
+        for (Long id : ids) {
+            if (id == null || id <= 0) {
+                continue;
+            }
+            Admin admin = get(id).get();
+            if (admin == null || admin.getRole() == null) {
+                continue;
+            }
 
-			if (admin.getRole().getInternalSign()) {
-				return result.error("数据包含系统角色，不可删除！");
-			}
+            if (admin.getRole().getInternalSign()) {
+                return result.error("数据包含系统角色，不可删除！");
+            }
 
-		}
+        }
 
-		for (Long id : ids) {
-			delete(id);
-		}
+        for (Long id : ids) {
+            delete(id);
+        }
 
-		return result.success();
-	}
+        return result.success();
+    }
 
-	@Override
-	public void editMine(Admin admin) {
+    @Override
+    public void editMine(Admin admin) {
 
-		Long id = admin.getId();
-		Admin original = get(id).get();
+        Long id = admin.getId();
+        Admin original = get(id).get();
 
-		BeanUtils.copyProperties(original, admin, "nickName", "gender",
-				"avatar", "phone", "email", "remarks");
+        BeanUtils.copyProperties(original, admin, "nickName", "gender",
+                "avatar", "phone", "email", "remarks");
 
-		save(admin);
+        save(admin);
 
-	}
+    }
 
-	@Override
-	public CommonResult changePassword(String orgpsd, String newpsd,
-			String confirmpsd, String token) {
+    @Override
+    public CommonResult changePassword(String orgpsd, String newpsd,
+                                       String confirmpsd, String token) {
 
-		if (StringUtils.isEmpty(orgpsd) || StringUtils.isEmpty(newpsd)
-				|| StringUtils.isEmpty(confirmpsd)
-				|| StringUtils.isEmpty(token)) {
-			return new CommonResult().error();
-		}
+        if (StringUtils.isEmpty(orgpsd) || StringUtils.isEmpty(newpsd)
+                || StringUtils.isEmpty(confirmpsd)
+                || StringUtils.isEmpty(token)) {
+            return new CommonResult().error();
+        }
 
-		Admin admin = getByToken(token);
+        Admin admin = getByToken(token);
 
-		if (admin == null) {
-			return new CommonResult().error("该用户不存在！");
-		}
+        if (admin == null) {
+            return new CommonResult().error("该用户不存在！");
+        }
 
-		if (MdHelper.stringMd5(orgpsd).equals(admin.getPassWord())
-				&& newpsd.equals(confirmpsd)) {
+        if (MdHelper.stringMd5(orgpsd).equals(admin.getPassWord())
+                && newpsd.equals(confirmpsd)) {
 
-			admin.setPassWord(MdHelper.stringMd5(newpsd));
-			save(admin);
+            admin.setPassWord(MdHelper.stringMd5(newpsd));
+            save(admin);
 
-			return new CommonResult().success(null, "密码修改成功！");
+            return new CommonResult().success(null, "密码修改成功！");
 
-		}
+        }
 
-		return new CommonResult().error("原密码错误，请重新输入原密码！");
-	}
+        return new CommonResult().error("原密码错误，请重新输入原密码！");
+    }
 
 }

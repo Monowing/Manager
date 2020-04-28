@@ -15,76 +15,69 @@ import com.chen.manager.viewmodel.CommonResult;
 
 /**
  * 系统——我的设置
- * 
+ * <p>
  * created at 2019-11-06
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 @Controller
 @RequestMapping("/admin/mine")
 public class MineController {
 
-	@Autowired
-	private AdminService adminService;
+    @Autowired
+    private AdminService adminService;
 
-	/**
-	 * 页面跳转——基本资料页面
-	 * 
-	 * @return
-	 */
-	@GetMapping("/baseInfo")
-	public String baseInfo(ModelMap model) {
-		model.addAttribute("genderList", Gender.values());
-		return "admin/mine/baseInfo";
-	}
+    /**
+     * 页面跳转——基本资料页面
+     *
+     * @return
+     */
+    @GetMapping("/baseInfo")
+    public String baseInfo(ModelMap model) {
+        model.addAttribute("genderList", Gender.values());
+        return "admin/mine/baseInfo";
+    }
 
-	/**
-	 * 页面跳转——修改密码页面
-	 * 
-	 * @return
-	 */
-	@GetMapping("/changePsd")
-	public String changePsd(ModelMap model) {
-		return "/admin/mine/changePsd";
-	}
+    /**
+     * 页面跳转——修改密码页面
+     *
+     * @return
+     */
+    @GetMapping("/changePsd")
+    public String changePsd(ModelMap model) {
+        return "/admin/mine/changePsd";
+    }
 
-	/**
-	 * 我的——设置我的资料
-	 * 
-	 * @param admin
-	 *            管理员信息
-	 * @return
-	 */
-	@PostMapping("/edit")
-	@ResponseBody
-	public CommonResult edit(Admin admin) {
-		System.out.println(admin.toString());
-		adminService.editMine(admin);
-		return new CommonResult().success();
-	}
+    /**
+     * 我的——设置我的资料
+     *
+     * @param admin 管理员信息
+     * @return
+     */
+    @PostMapping("/edit")
+    @ResponseBody
+    public CommonResult edit(Admin admin) {
+        System.out.println(admin.toString());
+        adminService.editMine(admin);
+        return new CommonResult().success();
+    }
 
-	/**
-	 * 我的——密码修改
-	 * 
-	 * @param userName
-	 *            用户名
-	 * @param orgpsd
-	 *            原始密码
-	 * @param newpsd
-	 *            新密码
-	 * @param confirmpsd
-	 *            确认密码
-	 * @param token
-	 *            Token
-	 * @return
-	 */
-	@PostMapping("/psdChange")
-	@ResponseBody
-	public CommonResult psdChange(String userName, String orgpsd,
-			String newpsd, String confirmpsd, String token) {
-		System.out.println(orgpsd + " " + newpsd + " " + confirmpsd + " "
-				+ token);
-		return adminService.changePassword(orgpsd, newpsd, confirmpsd, token);
-	}
+    /**
+     * 我的——密码修改
+     *
+     * @param userName   用户名
+     * @param orgpsd     原始密码
+     * @param newpsd     新密码
+     * @param confirmpsd 确认密码
+     * @param token      Token
+     * @return
+     */
+    @PostMapping("/psdChange")
+    @ResponseBody
+    public CommonResult psdChange(String userName, String orgpsd,
+                                  String newpsd, String confirmpsd, String token) {
+        System.out.println(orgpsd + " " + newpsd + " " + confirmpsd + " "
+                + token);
+        return adminService.changePassword(orgpsd, newpsd, confirmpsd, token);
+    }
 }

@@ -4,11 +4,10 @@ import com.chen.manager.entity.SysLog;
 
 /**
  * Service层——系统日志
- * 
+ * <p>
  * created at 2019-12-24
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 public interface SysLogService extends BaseService<SysLog, Long> {
 

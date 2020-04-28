@@ -10,25 +10,22 @@ import com.chen.manager.entity.Role;
 
 /**
  * DAO层——角色
- * 
+ * <p>
  * created at 2019-12-2
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 @Repository
 public interface RoleDao extends PagingAndSortingRepository<Role, Long> {
 
-	/**
-	 * 通过角色名查询角色分页数据
-	 * 
-	 * @param name
-	 *            角色名
-	 * @param pageRequest
-	 *            分页条件
-	 * @return
-	 */
-	@Query(value = "select * from sys_role where if(?1 !='', name like ?1,1=1)", nativeQuery = true)
-	Page<Role> pageRole(String name, PageRequest pageRequest);
+    /**
+     * 通过角色名查询角色分页数据
+     *
+     * @param name        角色名
+     * @param pageRequest 分页条件
+     * @return
+     */
+    @Query(value = "select * from sys_role where if(?1 !='', name like ?1,1=1)", nativeQuery = true)
+    Page<Role> pageRole(String name, PageRequest pageRequest);
 
 }

@@ -2,66 +2,64 @@ package com.chen.manager.viewmodel;
 
 /**
  * Layui的分页数据返回格式
- * 
+ * <p>
  * created at 2019-12-03
- * 
- * @author Administrator
  *
+ * @author Administrator
  */
 public class LayuiPageMode {
 
-	/**
-	 * code
-	 */
-	private Integer code;
-	
-	/**
-	 * 消息
-	 */
-	private String msg;
-	
-	/**
-	 * 总数量
-	 */
-	private Long count;
-	
-	/**
-	 * 分页数据
-	 */
-	private Object data;
+    /**
+     * code
+     */
+    private Integer code;
 
-	public Integer getCode() {
-		return code;
-	}
+    /**
+     * 消息
+     */
+    private String msg;
 
-	public void setCode(Integer code) {
-		this.code = code;
-	}
+    /**
+     * 总数量
+     */
+    private Long count;
 
-	public String getMsg() {
-		return msg;
-	}
+    /**
+     * 分页数据
+     */
+    private Object data;
 
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
+    public Integer getCode() {
+        return code;
+    }
 
-	public Long getCount() {
-		return count;
-	}
+    public void setCode(Integer code) {
+        this.code = code;
+    }
 
-	public void setCount(Long count) {
-		this.count = count;
-	}
+    public String getMsg() {
+        return msg;
+    }
 
-	public Object getData() {
-		return data;
-	}
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
-	public void setData(Object data) {
-		this.data = data;
-	}
-	
-	
-	
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+
 }

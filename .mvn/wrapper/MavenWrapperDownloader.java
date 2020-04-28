@@ -26,6 +26,11 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Properties;
 
+/**
+ * 
+ * @author MonoWing
+ *
+ */
 public class MavenWrapperDownloader {
 
     /**

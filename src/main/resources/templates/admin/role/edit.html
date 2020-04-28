@@ -1,78 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>基本资料</title>
-<link rel="stylesheet" href="/plugins/layui/css/layui.css">
-<link rel="stylesheet" href="/css/common.css">
+    <meta charset="UTF-8">
+    <title>基本资料</title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 
 <body>
 
-	<div class="layui-fluid">
-		<div class="layui-row margin-top-5">
+<div class="layui-fluid">
+    <div class="layui-row margin-top-5">
 
-			<form class="layui-form" id="editForm">
+        <form class="layui-form" id="editForm">
 
-				<input type="hidden" id="id" name="id" value="${roleMode.id}">
+            <input type="hidden" id="id" name="id" value="${roleMode.id}">
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">角色名</label>
-					<div class="layui-input-inline">
-						<input type="text" id="name" name="name" class="layui-input"
-							autocomplete="off" placeholder="请输入角色名" value="${roleMode.name}">
-					</div>
-					<div class="layui-form-mid layui-word-aux">描述该角色的名称</div>
-				</div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="name" name="name" class="layui-input"
+                           autocomplete="off" placeholder="请输入角色名" value="${roleMode.name}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">描述该角色的名称</div>
+            </div>
 
-				<div class="layui-form-item layui-form-text">
-					<label class="layui-form-label">描述</label>
-					<div class="layui-input-block">
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">描述</label>
+                <div class="layui-input-block">
 						<textarea id="description" name="description" placeholder="请输入内容"
-							class="layui-textarea">${roleMode.description}</textarea>
-					</div>
-				</div>
+                                  class="layui-textarea">${roleMode.description}</textarea>
+                </div>
+            </div>
 
-			</form>
+        </form>
 
-		</div>
-	</div>
+    </div>
+</div>
 
-	<script src="/js/jquery.min.js?v=2.1.4"></script>
-	<script src="/js/bootstrap.min.js?v=3.3.6"></script>
-	<script src="/plugins/layui/layui.js"></script>
-	<script src="/js/common.js"></script>
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/plugins/layui/layui.js"></script>
+<script src="/js/common.js"></script>
 
-	<script type="text/javascript">
-		layui.use([ 'form', 'layedit', 'laydate' ], function() {
-			var layer = layui.layer;
+<script type="text/javascript">
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var layer = layui.layer;
 
-		});
-		function validOk() {
+    });
 
-			if (myStringUtils.isBlankOrEmpty($("#name").val())) {
-				layer.msg('请输入角色名');
-				return false;
-			}
+    function validOk() {
 
-			return true;
+        if (myStringUtils.isBlankOrEmpty($("#name").val())) {
+            layer.msg('请输入角色名');
+            return false;
+        }
 
-		}
+        return true;
 
-		function submitForm() {
+    }
 
-			return $.ajax({
-				url : '/admin/role/edit',
-				type : 'post',
-				data : $("#editForm").serialize(),
-				dataType : 'json'
+    function submitForm() {
 
-			});
-		}
-	</script>
+        return $.ajax({
+            url: '/admin/role/edit',
+            type: 'post',
+            data: $("#editForm").serialize(),
+            dataType: 'json'
 
-	<script>
-		var BASE_URL = '${request.contextPath}';
-	</script>
+        });
+    }
+</script>
+
+<script>
+    var BASE_URL = '${request.contextPath}';
+</script>
 
 </body>

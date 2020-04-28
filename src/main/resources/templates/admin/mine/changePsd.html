@@ -1,149 +1,149 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>基本资料</title>
-<link rel="stylesheet" href="/plugins/layui/css/layui.css">
-<link rel="stylesheet" href="/css/common.css">
+    <meta charset="UTF-8">
+    <title>基本资料</title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 
 <body>
 
-	<div class="layui-fluid">
-		<div class="layui-row margin-top-5">
-			<div class="layui-col-md12">
-				<div class="layui-card">
-					<div class="layui-card-header">设置我的资料</div>
-					<div class="layui-card-body" pad15="">
+<div class="layui-fluid">
+    <div class="layui-row margin-top-5">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">设置我的资料</div>
+                <div class="layui-card-body" pad15="">
 
-						<div class="layui-form" lay-filter="">
-							<div class="layui-form-item">
-								<label class="layui-form-label">原密码</label>
-								<div class="layui-input-inline">
-									<input type="password" name="originalPsd" id="originalPsd"
-										class="layui-input" autocomplete="off" placeholder="请输入原密码"
-										lay-verify="original_psd">
-								</div>
-							</div>
+                    <div class="layui-form" lay-filter="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">原密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="originalPsd" id="originalPsd"
+                                       class="layui-input" autocomplete="off" placeholder="请输入原密码"
+                                       lay-verify="original_psd">
+                            </div>
+                        </div>
 
-							<div class="layui-form-item">
-								<label class="layui-form-label">新密码</label>
-								<div class="layui-input-inline">
-									<input type="password" name="newPsd" id="newPsd"
-										autocomplete="off" placeholder="请输入新密码" class="layui-input"
-										lay-verify="new_psd"">
-								</div>
-								<div class="layui-form-mid layui-word-aux">请填写6到12位密码，不要有空格</div>
-							</div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">新密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="newPsd" id="newPsd"
+                                       autocomplete="off" placeholder="请输入新密码" class="layui-input"
+                                       lay-verify="new_psd"">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">请填写6到12位密码，不要有空格</div>
+                        </div>
 
-							<div class="layui-form-item">
-								<label class="layui-form-label">确认密码</label>
-								<div class="layui-input-inline">
-									<input type="password" name="confirmPsd" id="confirmPsd"
-										autocomplete="off" placeholder="请再输入一次新密码" class="layui-input"
-										lay-verify="confirm_psd">
-								</div>
-								<div class="layui-form-mid layui-word-aux">请填写6到12位密码，不要有空格</div>
-							</div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">确认密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" name="confirmPsd" id="confirmPsd"
+                                       autocomplete="off" placeholder="请再输入一次新密码" class="layui-input"
+                                       lay-verify="confirm_psd">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">请填写6到12位密码，不要有空格</div>
+                        </div>
 
-							<input type="hidden" lay-verify="two_psd_confirm">
+                        <input type="hidden" lay-verify="two_psd_confirm">
 
-							<div class="layui-form-item">
-								<div class="layui-input-block">
-									<button class="layui-btn" lay-submit="" lay-filter="psdChange">确认修改</button>
-									<button class="layui-btn layui-btn-primary" onclick="reset()">重新填写</button>
-								</div>
-							</div>
-						</div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit="" lay-filter="psdChange">确认修改</button>
+                                <button class="layui-btn layui-btn-primary" onclick="reset()">重新填写</button>
+                            </div>
+                        </div>
+                    </div>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="/js/jquery.min.js?v=2.1.4"></script>
-	<script src="/plugins/layui/layui.js"></script>
-	<script src="/js/common.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/plugins/layui/layui.js"></script>
+<script src="/js/common.js"></script>
 
-	<script>
-	
-		layui.use([ 'form', 'layedit', 'laydate' ], function() {
-			var layer = layui.layer;
-			var form = layui.form;
+<script>
 
-			//自定义验证规则
-			form.verify({
-				original_psd : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
-				new_psd : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
-				confirm_psd : [ /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格' ],
-				two_psd_confirm : function(value) {
-					var originalPsd = $('#originalPsd').val();
-					var confirmPsd = $('#confirmPsd').val();
-					var newPsd = $('#newPsd').val();
-					if (confirmPsd != '' && newPsd != ''
-							&& confirmPsd != newPsd) {
-						return '确保新密码与确认密码相同！';
-					}
-					
-					if (originalPsd !='' && newPsd !='' && originalPsd == newPsd){
-						return '原密码和新密码相同，请重新输入';
-					}
-				}
-			});
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var layer = layui.layer;
+        var form = layui.form;
 
-			//监听提交
-			form.on('submit(psdChange)', function(data) {
-				layer.confirm('确认修改？', function(index) {
-					changePsd();
-					layer.close(index);
-				});
-				return false;
-			});
-		});
+        //自定义验证规则
+        form.verify({
+            original_psd: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'],
+            new_psd: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'],
+            confirm_psd: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'],
+            two_psd_confirm: function (value) {
+                var originalPsd = $('#originalPsd').val();
+                var confirmPsd = $('#confirmPsd').val();
+                var newPsd = $('#newPsd').val();
+                if (confirmPsd != '' && newPsd != ''
+                    && confirmPsd != newPsd) {
+                    return '确保新密码与确认密码相同！';
+                }
 
-		function changePsd() {
-			
-			$.ajax({
-				url : '/admin/mine/psdChange',
-				type : 'post',
-				data : {
-					orgpsd : $('#originalPsd').val(),
-					newpsd : $('#newPsd').val(),
-					confirmpsd : $('#confirmPsd').val(),
-					token : localStorage.getItem(theToken)
-				},
-				dataType : 'json',
-				success: function (result){
-					console.log(result)
-					if(result != null){
-						if(result.code == 0){
-							resetInput();
-						}
-						layer.msg(result.msg);
-					}else{
-						layer.msg("数据获取失败!");
-					}
-					
-				},
-				error(err) {
-	            	layer.msg("服務器异常！")
-	            }
-			});
-		}
-		
-		function reset(){
-			layer.confirm('该操作将覆盖已修改的内容，是否重新填写？', function(index) {
-				resetInput();
-				layer.close(index);
-			});
-		}
+                if (originalPsd != '' && newPsd != '' && originalPsd == newPsd) {
+                    return '原密码和新密码相同，请重新输入';
+                }
+            }
+        });
 
-		function resetInput(){
-			$('#originalPsd').val("");
-			$('#newPsd').val("");
-			$('#confirmPsd').val("");
-		}
-		
-	</script>
+        //监听提交
+        form.on('submit(psdChange)', function (data) {
+            layer.confirm('确认修改？', function (index) {
+                changePsd();
+                layer.close(index);
+            });
+            return false;
+        });
+    });
+
+    function changePsd() {
+
+        $.ajax({
+            url: '/admin/mine/psdChange',
+            type: 'post',
+            data: {
+                orgpsd: $('#originalPsd').val(),
+                newpsd: $('#newPsd').val(),
+                confirmpsd: $('#confirmPsd').val(),
+                token: localStorage.getItem(theToken)
+            },
+            dataType: 'json',
+            success: function (result) {
+                console.log(result)
+                if (result != null) {
+                    if (result.code == 0) {
+                        resetInput();
+                    }
+                    layer.msg(result.msg);
+                } else {
+                    layer.msg("数据获取失败!");
+                }
+
+            },
+            error(err) {
+                layer.msg("服務器异常！")
+            }
+        });
+    }
+
+    function reset() {
+        layer.confirm('该操作将覆盖已修改的内容，是否重新填写？', function (index) {
+            resetInput();
+            layer.close(index);
+        });
+    }
+
+    function resetInput() {
+        $('#originalPsd').val("");
+        $('#newPsd').val("");
+        $('#confirmPsd').val("");
+    }
+
+</script>
 
 </body>

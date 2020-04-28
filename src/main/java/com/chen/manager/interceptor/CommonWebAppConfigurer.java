@@ -10,66 +10,65 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 拦截器
- * 
+ * <p>
  * created at 2019-11-26
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 @Configuration
 public class CommonWebAppConfigurer implements WebMvcConfigurer {
 
-	/**
-	 * 不被拦截的url
-	 */
-	@Value("${unCheckUrl.name}")
-	private String name;
+    /**
+     * 不被拦截的url
+     */
+    @Value("${unCheckUrl.name}")
+    private String name;
 
-	/**
-	 * 文件上传路径
-	 */
-	@Value("${file.upload.path}")
-	private String fileUploadPath;
+    /**
+     * 文件上传路径
+     */
+    @Value("${file.upload.path}")
+    private String fileUploadPath;
 
-	/**
-	 * 文件资源路径
-	 */
-	@Value("${file.resource.handler}")
-	private String fileResourceHandler;
+    /**
+     * 文件资源路径
+     */
+    @Value("${file.resource.handler}")
+    private String fileResourceHandler;
 
-	/**
-	 * 文件资源路径
-	 */
-	@Value("${file.resource.location}")
-	private String fileResourceLocation;
+    /**
+     * 文件资源路径
+     */
+    @Value("${file.resource.location}")
+    private String fileResourceLocation;
 
-	/**
-	 * 分隔符
-	 */
-	public static final String SEPARATOR_STR = ","; 
-	
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		// 多个拦截器组成一个拦截器链
-		// addPathPatterns 用于添加拦截规则
-		InterceptorRegistration r1 = registry.addInterceptor(
-				commonInterceptor()).addPathPatterns("/**");
-		for (String string : name.split(SEPARATOR_STR)) {
-			// excludePathPatterns 用户排除拦截
-			r1.excludePathPatterns(string);
-		}
-		// super.addInterceptors(registry);
-	}
+    /**
+     * 分隔符
+     */
+    public static final String SEPARATOR_STR = ",";
 
-	@Bean
-	public CommonInterceptor commonInterceptor() {
-		return new CommonInterceptor();
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 多个拦截器组成一个拦截器链
+        // addPathPatterns 用于添加拦截规则
+        InterceptorRegistration r1 = registry.addInterceptor(
+                commonInterceptor()).addPathPatterns("/**");
+        for (String string : name.split(SEPARATOR_STR)) {
+            // excludePathPatterns 用户排除拦截
+            r1.excludePathPatterns(string);
+        }
+        // super.addInterceptors(registry);
+    }
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(fileResourceHandler).addResourceLocations(
-				fileResourceLocation);
-	}
+    @Bean
+    public CommonInterceptor commonInterceptor() {
+        return new CommonInterceptor();
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(fileResourceHandler).addResourceLocations(
+                fileResourceLocation);
+    }
 
 }

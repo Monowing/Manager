@@ -8,26 +8,27 @@ import java.lang.annotation.Target;
 
 /**
  * 操作日志
- * 
+ * <p>
  * created at 2019-12-24
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface OperLog {
 
-	/**
-	 * 介绍
-	 * @return
-	 */
-	String message();
+    /**
+     * 介绍
+     *
+     * @return
+     */
+    String message();
 
-	/**
-	 * 日志类型
-	 * @return
-	 */
-	String operation();
+    /**
+     * 日志类型
+     *
+     * @return
+     */
+    String operation();
 }

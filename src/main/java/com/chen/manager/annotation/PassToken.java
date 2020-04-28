@@ -7,17 +7,16 @@ import java.lang.annotation.Target;
 
 /**
  * 自定义注解：跳过Token验证
- * 
+ * <p>
  * created at 2019-11-05
- * 
- * @author MonoWing
  *
+ * @author MonoWing
  */
 
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PassToken {
 
-	boolean required() default true;
+    boolean required() default true;
 
 }
