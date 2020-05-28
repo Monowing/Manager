@@ -47,7 +47,6 @@ public class LoginController {
     @PostMapping("/loginWeb")
     @ResponseBody
     public CommonResult login(String userName, String passWord) {
-
         return adminService.loginWeb(userName, passWord);
     }
 

@@ -36,9 +36,9 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-block">
-                                <#list genderList as item> <input type="radio" name="gender"
-                                                                  value="${item}" title="${item.desc}"></
-                            #list>
+                                <#list genderList as item>
+                                <input type="radio" name="gender" value="${item}" title="${item.desc}">
+                            </#list>
                         </div>
                 </div>
                 <div class="layui-form-item">
@@ -188,11 +188,11 @@
 
     function showImg() {
 
-        var img = "<img src='" + $('#avatar').val() + "' />";
+        var img = "<img width='300' height='300' src='" + $('#avatar').val() + "' />";
         layer.open({
             type: 1,
-            shift: 2,
-            shade: 0,
+            // shift: 2,
+            shade: 0.8,
             title: '查看图片',
             shadeClose: true,
             content: img

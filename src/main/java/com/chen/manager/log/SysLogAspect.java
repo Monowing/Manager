@@ -94,6 +94,7 @@ public class SysLogAspect {
         Log.info("HTTP_METHOD : " + request.getMethod());
         Log.info("IP : " + request.getRemoteAddr());
         Log.info("REAL_IP :" + BaseUtils.getRealIpAddress(request));
+
         sysLog.setIp(BaseUtils.getRealIpAddress(request));
 
         // 开始调用时间

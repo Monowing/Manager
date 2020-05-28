@@ -1,5 +1,7 @@
 package com.chen.manager.controller;
 
+import com.chen.manager.annotation.OperLog;
+import com.chen.manager.common.OperationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -54,6 +56,7 @@ public class MineController {
      * @param admin 管理员信息
      * @return
      */
+    @OperLog(message = "修改我的资料", operation = OperationType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
     public CommonResult edit(Admin admin) {
@@ -72,6 +75,7 @@ public class MineController {
      * @param token      Token
      * @return
      */
+    @OperLog(message = "修改密码", operation = OperationType.UPDATE)
     @PostMapping("/psdChange")
     @ResponseBody
     public CommonResult psdChange(String userName, String orgpsd,
